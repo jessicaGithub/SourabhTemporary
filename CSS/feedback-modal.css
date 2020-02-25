@@ -1,0 +1,79 @@
+.feedback1 {
+	display: inline-block;
+	width: 100%;
+	margin: 20px 0 0;
+	text-align: right;
+}
+
+.modal-header
+{
+	    display: block;
+}
+.feedback-modal h4.modal-title {
+	font-size: 30px;
+	font-weight: normal;
+	color: #1d232b;
+	margin-top: 14px;
+	text-transform: uppercase;
+	text-align: center;
+}
+
+@media (min-width: 768px)
+.modal-dialog {
+    width: 600px;
+    margin: 30px auto;
+}
+
+.feedback-modal .modal-title {
+	margin: 0;
+	line-height: 1.42857143;
+}
+
+.feedback-modal .animated {
+	animation-fill-mode: both;
+	animation-duration: 1s;
+}
+
+.feedback-modal .animate_btn {
+	background: #c13630;
+	border: 0;
+	height: 40px;
+	border-radius: 3px;
+	color: #fff;
+	font-size: 12px;
+	cursor: pointer;
+	transition: background 0.3s ease-in-out;
+	outline: none;
+	border-radius: 0px;
+	margin: 0px auto 10px auto;
+	width: 120px;
+	font-family: 'RobotoCondensed';
+	font-size: 18px;
+	letter-spacing: 0.5px;
+}
+
+#feedback-form {
+	text-align: center;
+}
+
+#feedback-area {
+	height: 70px;
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1040;
+  background-color: #000;
+}
+.modal-backdrop.fade {
+  filter: alpha(opacity=0);
+  opacity: 0;
+}
+.modal-backdrop.in {
+  display:none;
+}
+
