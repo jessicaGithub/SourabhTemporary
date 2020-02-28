@@ -11980,4 +11980,113 @@ font-style: normal;
 }
 
 /* Topic Page or Publication Site CSS for Land Doctrine team to work on */
+
 /* OVERRIDE CSS STARTS HERE */
+body.no-scroll {
+    overflow: hidden;
+}
+.table-scroll-container {
+    max-width: 100%;
+    max-height: 600px;
+    margin: 40px auto;
+    overflow: scroll;
+    position: relative;
+    background: white;
+}
+
+.table-scroll-container::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 15px;
+}
+
+.table-scroll-container::-webkit-scrollbar-thumb {
+    border-radius: 0px;
+    background-color: #00BCD4;
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
+.table-scroll-container::-webkit-scrollbar-track,
+.table-scroll-container::-webkit-scrollbar-corner {
+    background-color: white;
+}
+
+div.topic .expandable-table table:before { display: none !important; }
+
+.table-container {
+    position: relative;
+}
+.table-container.expandable-table .fixed-btn-container {
+    position: absolute;
+    z-index: 9999;
+    top: 0;
+    right: 0;
+}
+.table-container.expandable-table .fixed-btn-container .fixed-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    left: auto !important;
+    width: 40px;
+    height: 40px;
+    font-size: 25px;
+    cursor: pointer;
+    background: #00BCD4;
+    color: white;
+    z-index: 90 !important;
+}
+.table-container.expandable-table .fixed-btn-container .fixed-btn .material-icons {
+    font-size: 40px;
+}
+
+.expandable-table .table-scroll-container {
+    position: relative;
+}
+
+.expandable-table.expandable-table--open {
+    position: fixed !important;
+    z-index: 5000;
+    top: 40px;
+    left: 5%;
+}
+
+.expandable-table.expandable-table--open .table-scroll-container {
+    max-width: none;
+    max-height: none;
+    overflow: scroll;
+    position: fixed;
+    z-index: 100;
+    background: black;
+    border: none;
+    top: 0;
+    left: 5%;
+    height: 90%;
+    width: 90%;
+}
+
+.hide-temp { display: none; }
+
+.expandable-table.expandable-table--open .table-scroll-container table {
+    left: 0 !important;
+    top: 0;
+}
+
+.expandable-table.expandable-table--open .table-scroll-container table caption {
+    padding-left: 15%;
+}
+
+table > caption.title::before {
+    content: attr(data-label);
+}
+
+table > caption.title > div {
+    display: inline-block !important;
+    max-width: 380px;
+    vertical-align: top;
+    text-align: left;
+}
+
+div.topic .table-container table caption {
+    caption-side: initial;
+    left: 0 !important;
+    text-align: left;
+    padding-left: 230px;
+}
