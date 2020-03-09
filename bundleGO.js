@@ -10153,7 +10153,8 @@
 			});
 		});
 
-		jQuery.each(("blur focus focusin focusout resize scroll click dblclick " + "mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave " + "change select submit keydown keypress keyup contextmenu").split(" "), function (i, name) {
+		jQuery.each(("blur focus focusin focusout scroll click dblclick " + "mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave " + "change select submit keydown keypress keyup contextmenu").split(" "), function (i, name) {
+			// jQuery.each(("blur focus focusin focusout resize scroll click dblclick " + "mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave " + "change select submit keydown keypress keyup contextmenu").split(" "), function (i, name) {
 
 			// Handle event binding
 			jQuery.fn[name] = function (data, fn) {
@@ -39322,40 +39323,6 @@
 
                     //SOURABH START
                     table.wrap('<div class="table-scroll-container"></div>');
-
-                    // Setup script import and cache it
-                    (0, _jquery2.default).cachedScript = function( url, options ) {
-                        options = (0, _jquery2.default).extend( options || {}, {
-                            dataType: "script",
-                            cache: true,
-                            url: url
-                        });
-
-                        // Use $.ajax() since it is more flexible than $.getScript
-                        // Return the jqXHR object so we can chain callbacks
-                        return (0, _jquery2.default).ajax( options );
-                    };
-                    // import FloatHeadJS
-                    (0, _jquery2.default).cachedScript( "https://cdnjs.cloudflare.com/ajax/libs/floatthead/2.1.4/jquery.floatThead.min.js" ).done(function( script, textStatus ) {
-                        table.on("floatThead", function(){
-                            var newWidth = table.closest(".table-scroll-container").width() - 10;
-                            tableContainer.find(".floatThead-container").css({width: newWidth});
-                        })
-                        table.on("reflowed", function(){
-                            setTimeout(function(){
-                                var newWidth = table.closest(".table-scroll-container").width() - 10;
-                                tableContainer.find(".floatThead-container").css({width: newWidth});
-                            }, 1000);
-                        })
-                        table.floatThead({
-                            top: 0,
-                            scrollContainer: function(table){
-                                return table.closest('.table-scroll-container');
-                            },
-                            position: 'absolute'
-                        });
-                        table.floatThead("reflow");
-                    })
                     //SOURABH END
 
 					// Skip small tables
@@ -39943,31 +39910,75 @@
 		  $(this).html(contentHTML);
       });
 
-      // SOURABH START
-        $(document).on("click", ".fixed-btn", function(e){
-            e.preventDefault();
-            e.stopPropagation();
-            var targetTableBody = $(this).closest(".expandable-table");
-            targetTableBody.find(".tbody").click();
-        });
+	  // SOURABH START
+		// Setup script import and cache it
+		$.cachedScript = function( url, options ) {
+			options = $.extend( options || {}, {
+				dataType: "script",
+				cache: true,
+				url: url
+			});
+
+			// Use $.ajax() since it is more flexible than $.getScript
+			// Return the jqXHR object so we can chain callbacks
+			return $.ajax( options );
+		};
 
         setTimeout(function(){
-            $(".floatThead-wrapper").each(function(e){
-                var newWidth = $(".table-scroll-container").width() - 10;
-                $(this).find(".floatThead-container").css({width: newWidth });
-            });
-            $(document).on("click", ".floatThead-wrapper .thead", function(e){
-                e.preventDefault();
-                e.stopPropagation();
-                var targetTableBody = $(this).closest(".expandable-table");
-                targetTableBody.find(".tbody").click();
-			});
-// 			$(".rotate-text").each(function(e){
-//                 var newWidth = $(this).closest(".entry").height();
-//                 $(this).css({width: newWidth });
-//             });
-        }, 3000);
-    });
+
+			// import FloatHeadJS
+			$.cachedScript( "https://cdnjs.cloudflare.com/ajax/libs/floatthead/2.1.4/jquery.floatThead.min.js" ).done(function( script, textStatus ) {
+
+				$(".table-scroll-container > table").each(function(){
+					var tableContainer = $( this ).closest('.table-container');
+					var table = $( this );
+					table.on("floatThead", function(){
+						var newWidth = table.closest(".table-scroll-container").width() - 10;
+						tableContainer.find(".floatThead-container").css({width: newWidth});
+					})
+					table.on("reflowed", function(){
+						setTimeout(function(){
+							var newWidth = table.closest(".table-scroll-container").width() - 10;
+							tableContainer.find(".floatThead-container").css({width: newWidth});
+						}, 1000);
+					})
+					table.floatThead({
+						top: 0,
+						scrollContainer: function(table){
+							return table.closest('.table-scroll-container');
+						},
+						position: 'absolute'
+					});
+					table.floatThead("reflow");
+
+					// force expand and close all tables upon load to fix the column width
+					table.find(".tbody").click();
+				});
+
+				$(".floatThead-wrapper").each(function(e){
+					var newWidth = $(".table-scroll-container").width() - 10;
+					$(this).find(".floatThead-container").css({width: newWidth});
+				});
+				$(document).on("click", ".floatThead-wrapper .thead, .fixed-btn", function(e){
+					e.preventDefault();
+					e.stopPropagation();
+					var targetTableBody = $(this).closest(".expandable-table");
+					targetTableBody.find(".tbody").click();
+				});
+
+				setTimeout(function(){
+					$(".table-scroll-container").css("visibility", "hidden").find("table").click();
+					$(".expandable-table--open").each(function(){
+						$(this).find("table").click();
+					})
+					$(".table-scroll-container").css("visibility", "visible");
+				}, 2000);
+
+			})
+		}, 3000);
+	});
+
+	// SOURABH ENDS
 
 
 

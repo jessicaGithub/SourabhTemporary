@@ -12100,6 +12100,7 @@ div.topic .table-container table caption {
     left: 0 !important;
     text-align: left;
     padding-left: 230px;
+    z-index: 2;
 }
 
 div.topic table.table th.entry .p.rotate-text{
