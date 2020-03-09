@@ -39337,8 +39337,16 @@
                     };
                     // import FloatHeadJS
                     (0, _jquery2.default).cachedScript( "https://cdnjs.cloudflare.com/ajax/libs/floatthead/2.1.4/jquery.floatThead.min.js" ).done(function( script, textStatus ) {
-                        console.log( textStatus );
-                        table
+                        table.on("floatThead", function(){
+                            var newWidth = table.closest(".table-scroll-container").width() - 10;
+                            tableContainer.find(".floatThead-container").css({width: newWidth});
+                        })
+                        table.on("reflowed", function(){
+                            setTimeout(function(){
+                                var newWidth = table.closest(".table-scroll-container").width() - 10;
+                                tableContainer.find(".floatThead-container").css({width: newWidth});
+                            }, 1000);
+                        })
                         table.floatThead({
                             top: 0,
                             scrollContainer: function(table){
@@ -39346,9 +39354,8 @@
                             },
                             position: 'absolute'
                         });
-                    });
-
-                    // });
+                        table.floatThead("reflow");
+                    })
                     //SOURABH END
 
 					// Skip small tables
@@ -39421,7 +39428,6 @@
 		}, {
 			key: 'handleClick',
 			value: function handleClick(e) {
-                console.log(e);
 				var table = (0, _jquery2.default)(this);
 				var tableContainer = table.closest('.table-container');
 
@@ -39447,6 +39453,7 @@
 
                     //SOURABH START
                     table.floatThead('reflow');
+
                     //SOURABH END
 				}
 
@@ -39477,6 +39484,7 @@
 
                     //SOURABH START
                     table.floatThead('reflow');
+
                     //SOURABH END
 				}
 
@@ -39516,6 +39524,7 @@
 
                     //SOURABH START
                     table.floatThead('reflow');
+
                     //SOURABH END
 				});
 				}
@@ -39935,15 +39944,30 @@
       });
 
       // SOURABH START
-      $(document).on("click", ".fixed-btn", function(e){
-          e.preventDefault();
-          e.stopPropagation();
-          var targetTableBody = $(this).closest(".expandable-table");
-          targetTableBody.find(".tbody").click();
+        $(document).on("click", ".fixed-btn", function(e){
+            e.preventDefault();
+            e.stopPropagation();
+            var targetTableBody = $(this).closest(".expandable-table");
+            targetTableBody.find(".tbody").click();
         });
-      // SOURABH END
 
-	});
+        setTimeout(function(){
+            $(".floatThead-wrapper").each(function(e){
+                var newWidth = $(".table-scroll-container").width() - 10;
+                $(this).find(".floatThead-container").css({width: newWidth });
+            });
+            $(document).on("click", ".floatThead-wrapper .thead", function(e){
+                e.preventDefault();
+                e.stopPropagation();
+                var targetTableBody = $(this).closest(".expandable-table");
+                targetTableBody.find(".tbody").click();
+			});
+// 			$(".rotate-text").each(function(e){
+//                 var newWidth = $(this).closest(".entry").height();
+//                 $(this).css({width: newWidth });
+//             });
+        }, 3000);
+    });
 
 
 

@@ -502,7 +502,7 @@ div.topic .table-container caption {
 
 div.topic .table-container table {
     background-color: white;
-    border: 1px solid #dfdfdf;
+    border: 1px solid black;
     font-family: 'Helvetica Neue LT Std Medium', sans-serif !important;
 }
 
@@ -550,6 +550,7 @@ div.topic .table-container table.trheadwheading .thead tr:first-child th {
     background-color: #000 !important;
     text-align: center;
     vertical-align: middle;
+    min-width: 100px;
 }
 
 /* White text on black row */
@@ -585,7 +586,7 @@ div.topic .table-container table .rotate-text {
     -o-transform: rotate(270deg);
     -ms-transform: rotate(270deg);
     -ms-writing-mode: lr-tb;
-        writing-mode: lr-tb;
+    writing-mode: lr-tb;
     text-align: center;
     vertical-align: middle;
     word-break: keep-all;
@@ -11916,7 +11917,7 @@ ol + div.table-container{
 }
 
 div.topic table.table th.entry .p.rotate-text{
-	margin:10px 0px 10px 0px;
+    margin:10px 0px 10px 0px;
     display:table-caption;
 }
 div.topic section.section h2.title+.p{
@@ -11987,27 +11988,34 @@ body.no-scroll {
 }
 .table-scroll-container {
     max-width: 100%;
-    max-height: 600px;
+    max-height: 70vh;
+    min-height: 500px;
     margin: 40px auto;
     overflow: scroll;
     position: relative;
     background: white;
+    border: 1px solid black;
 }
 
 .table-scroll-container::-webkit-scrollbar {
     -webkit-appearance: none;
-    width: 15px;
+    width:10px;
+    height: 10px;
 }
 
 .table-scroll-container::-webkit-scrollbar-thumb {
-    border-radius: 0px;
+    border-radius: 5px;
     background-color: #00BCD4;
     -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
 }
 .table-scroll-container::-webkit-scrollbar-track,
 .table-scroll-container::-webkit-scrollbar-corner {
     background-color: white;
+    border-left: 1px solid black;
+    border-top: 1px solid black;
 }
+
+.floatThead-wrapper { cursor: pointer; }
 
 div.topic .expandable-table table:before { display: none !important; }
 
@@ -12022,7 +12030,7 @@ div.topic .expandable-table table:before { display: none !important; }
 }
 .table-container.expandable-table .fixed-btn-container .fixed-btn {
     position: absolute;
-    top: 20px;
+    top: 60px;
     right: 20px;
     left: auto !important;
     width: 40px;
@@ -12083,10 +12091,18 @@ table > caption.title > div {
     vertical-align: top;
     text-align: left;
 }
+div.topic .table-container table {
+    background: white;
+}
 
 div.topic .table-container table caption {
     caption-side: initial;
     left: 0 !important;
     text-align: left;
     padding-left: 230px;
+}
+
+div.topic table.table th.entry .p.rotate-text{
+    /* display: block; */
+    padding: 0 10px;
 }
