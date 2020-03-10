@@ -12002,6 +12002,10 @@ body.no-scroll {
     border: 1px solid black;
 }
 
+.table-scroll-container--x-only {
+    overflow-y: auto !important;
+}
+
 .table-scroll-container::-webkit-scrollbar {
     -webkit-appearance: none;
     width:10px;
@@ -12073,6 +12077,10 @@ div.topic .expandable-table table:before { display: none !important; }
     left: 5%;
     height: 90%;
     width: 90%;
+}
+
+.expandable-table.expandable-table--open .table-scroll-container--x-only {
+    overflow-y: auto !important;
 }
 
 .hide-temp { display: none !important; }
