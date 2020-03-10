@@ -553,6 +553,11 @@ div.topic .table-container table.trheadwheading .thead tr:first-child th {
     min-width: 100px;
 }
 
+div.topic .table-container table.trheadwheading .thead tr:first-child th:nth-child(2) {
+    min-width: 300px;
+}
+
+
 /* White text on black row */
 div.topic .table-container table.trheadwheading .thead div.p {
     color: #fff !important;
@@ -12079,6 +12084,7 @@ div.topic .expandable-table table:before { display: none !important; }
 
 .expandable-table.expandable-table--open .table-scroll-container table caption {
     padding-left: 15%;
+    background: transparent;
 }
 
 table > caption.title::before {
@@ -12101,9 +12107,11 @@ div.topic .table-container table caption {
     text-align: left;
     padding-left: 230px;
     z-index: 2;
+    background: white;
+    margin-bottom: 0 !important;
+    padding-bottom: 1.25em;
 }
 
 div.topic table.table th.entry .p.rotate-text{
-    /* display: block; */
     padding: 0 10px;
 }

@@ -39947,6 +39947,7 @@
 						scrollContainer: function(table){
 							return table.closest('.table-scroll-container');
 						},
+						autoReflow:true,
 						position: 'absolute'
 					});
 					table.floatThead("reflow");
