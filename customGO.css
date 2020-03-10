@@ -550,12 +550,12 @@ div.topic .table-container table.trheadwheading .thead tr:first-child th {
     background-color: #000 !important;
     text-align: center;
     vertical-align: middle;
-    min-width: 100px;
+    /* min-width: 100px; */
 }
 
-div.topic .table-container table.trheadwheading .thead tr:first-child th:nth-child(2) {
+/* div.topic .table-container table.trheadwheading .thead tr:first-child th:nth-child(2) {
     min-width: 300px;
-}
+} */
 
 
 /* White text on black row */
@@ -12075,7 +12075,7 @@ div.topic .expandable-table table:before { display: none !important; }
     width: 90%;
 }
 
-.hide-temp { display: none; }
+.hide-temp { display: none !important; }
 
 .expandable-table.expandable-table--open .table-scroll-container table {
     left: 0 !important;

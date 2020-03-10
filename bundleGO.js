@@ -39321,19 +39321,16 @@
 					table = (0, _jquery2.default)(table);
                     var tableContainer = table.closest('.table-container');
 
-                    //SOURABH START
-                    table.wrap('<div class="table-scroll-container"></div>');
-                    //SOURABH END
-
 					// Skip small tables
 					if (table.width() <= tableContainer.width()) {
-					if(table.hasClass('expand-150') || table.hasClass('expand-175') || table.hasClass('expand-200') || table.hasClass('expand-250')){
+						if(table.hasClass('expand-150') || table.hasClass('expand-175') || table.hasClass('expand-200') || table.hasClass('expand-250')){
 
+						}
+						else{
+							return;
+						}
 					}
-					else{
-						return;
-					}
-					}
+
 					// Store init info
 					tableContainer.data('expandable-table-expanded', 0);
 					tableContainer.addClass('expandable-table');
@@ -39341,7 +39338,8 @@
 						"overflow-x": 'auto'
                     });
 
-                    // SOURABH START
+					// SOURABH START
+					table.wrap('<div class="table-scroll-container"></div>');
                     tableContainer.append('<div class="fixed-btn-container"><div class="fixed-btn"><div class="imageZoomIcon"><div class="material-icons">zoom_out_map</div></div></div></div></div>');
                     // SOURABH END
 
@@ -39349,11 +39347,23 @@
 					table.css("cursor", "pointer");
 					(function expandTableWidth() {
 						var cols = table.find('colgroup > col');
+						// SOURABH START
+						var currentParentWidth = table.width();
+						// console.log( "currentParentWidth " + currentParentWidth);
 						if (cols.length) {
+
+							var counter = 1;
 							var width = _lodash2.default.reduce(cols, function (sum, n) {
 								n = (0, _jquery2.default)(n);
-								return sum + parseInt(n.css('width'), 10);
+								var percentageSum = sum + parseInt(n.css('width'), 10);
+								var minWidthForHeaderCol = parseInt(n.css('width'), 10) * currentParentWidth / 100;
+								// console.log( "minWidthForHeaderCol " + minWidthForHeaderCol);
+
+								(0, _jquery2.default)(n).parent().parent().find(".thead tr th:nth-child(" + counter + ")").css("minWidth", minWidthForHeaderCol );
+								counter++;
+								return percentageSum;
 							}, 0);
+							// SOURABH ENDS
 							if(table.hasClass('expand-150')){
 							/* Setting width to (width * 1.25) to match font-size in sites output */
 								table.css("width", '188%');
@@ -39947,13 +39957,15 @@
 						scrollContainer: function(table){
 							return table.closest('.table-scroll-container');
 						},
-						autoReflow:true,
 						position: 'absolute'
 					});
 					table.floatThead("reflow");
 
-					// force expand and close all tables upon load to fix the column width
-					table.find(".tbody").click();
+
+					// SOURABH START
+					$(".table-scroll-container").css("opacity", "0");
+					table.click();
+					// SOURABH END
 				});
 
 				$(".floatThead-wrapper").each(function(e){
@@ -39968,11 +39980,10 @@
 				});
 
 				setTimeout(function(){
-					$(".table-scroll-container").css("visibility", "hidden").find("table").click();
 					$(".expandable-table--open").each(function(){
 						$(this).find("table").click();
 					})
-					$(".table-scroll-container").css("visibility", "visible");
+					$(".table-scroll-container").css("opacity", "1");
 				}, 2000);
 
 			})
