@@ -39953,17 +39953,22 @@
 							tableContainer.find(".floatThead-container").css({width: newWidth});
 						}, 1000);
 					})
-					if(table.height() < tableScrollContainer.height()) {
+
+					if(table.height() < tableScrollContainer.height() ) {
 						tableScrollContainer.addClass("table-scroll-container--x-only");
 						// no floathead for these small tables
 					} else {
-						table.floatThead({
-							top: 0,
-							scrollContainer: function(table){
-								return table.closest('.table-scroll-container');
-							},
-							position: 'absolute'
-						});
+						// do not init fixed headers on tables inside li elements
+						if (table.parents("li").length === 0) {
+							table.floatThead({
+								top: 0,
+								scrollContainer: function(table){
+									return table.closest('.table-scroll-container');
+								},
+								position: 'absolute'
+							});
+
+						}
 					}
 					table.floatThead("reflow");
 
