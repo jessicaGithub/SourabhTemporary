@@ -39959,7 +39959,7 @@
 						// no floathead for these small tables
 					} else {
 						// do not init fixed headers on tables inside li elements
-						if (table.parents("li").length === 0) {
+						// if (table.parents("li").length === 0) {
 							table.floatThead({
 								top: 0,
 								scrollContainer: function(table){
@@ -39967,10 +39967,9 @@
 								},
 								position: 'absolute'
 							});
-
-						}
+						// }
 					}
-					table.floatThead("reflow");
+					table.floatThead('reflow');
 
 					$(".expandable-table").css("opacity", "0");
 					tableScrollContainer.css("opacity", "0");

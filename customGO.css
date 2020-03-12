@@ -11275,7 +11275,7 @@ article.card-row a:hover .content h4 {
     padding-left: 0px;
 }
 
-.content-area-custom ol li div {
+.content-area-custom ol li > div {
     display: inline-grid;
     /* inline-grid */
     display: -moz-grid-line;
@@ -11283,6 +11283,7 @@ article.card-row a:hover .content h4 {
 	/* Fix for the Note Heading merge issue in Edge
     display: -ms-inline-grid; */
     vertical-align: top;
+    max-width: 100%;
 }
 
 .content-area-custom ol li ol.ol {
