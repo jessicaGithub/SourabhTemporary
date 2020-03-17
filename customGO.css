@@ -12001,6 +12001,8 @@ body.no-scroll {
     position: relative;
     background: white;
     border: 1px solid black;
+    scrollbar-width: 10px;
+    scrollbar-color: #00BCD4;
 }
 
 .table-scroll-container--x-only {
@@ -12016,6 +12018,7 @@ body.no-scroll {
 .table-scroll-container::-webkit-scrollbar-thumb {
     border-radius: 5px;
     background-color: #00BCD4;
+    color: #00BCD4;
     -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
 }
 .table-scroll-container::-webkit-scrollbar-track,
@@ -12108,6 +12111,7 @@ table > caption.title > div {
 }
 div.topic .table-container table {
     background: white;
+    margin-top: 30px;
 }
 
 div.topic .table-container table caption {

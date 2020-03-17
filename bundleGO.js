@@ -39989,14 +39989,25 @@
 					targetTableBody.find(".tbody").click();
 				});
 
+
+				$(".expandable-table--open").each(function(){
+					$(this).find("table").click();
+				})
+				$(".table-scroll-container").css("opacity", "1");
+				$(".expandable-table").css("opacity", "1");
+
 				setTimeout(function(){
 
-					$(".expandable-table--open").each(function(){
-						$(this).find("table").click();
-					})
-					$(".table-scroll-container").css("opacity", "1");
-					$(".expandable-table").css("opacity", "1");
+					var hash = window.location.hash;
+					var itemId = hash.substring(1, hash.length);
+					var targetEl = document.getElementById(itemId);
+					var x = $(targetEl).offset();
+					$("html").animate({
+						scrollTop: x.top - 50
+					}, 2000);
 				}, 2000);
+
+
 
 			})
 		}, 3000);
