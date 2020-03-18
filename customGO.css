@@ -12009,7 +12009,7 @@ body.no-scroll {
     overflow-y: auto !important;
 }
 
-.table-scroll-container::-webkit-scrollbar {
+/* .table-scroll-container::-webkit-scrollbar {
     -webkit-appearance: none;
     width:10px;
     height: 10px;
@@ -12026,6 +12026,78 @@ body.no-scroll {
     background-color: white;
     border-left: 1px solid black;
     border-top: 1px solid black;
+} */
+
+/*IE*/
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    .table-scroll-container {
+        margin-right: -10px;
+        padding-top: 32px;
+        margin-top: -32px;
+        margin-bottom: -32px;
+        padding-bottom: 32px;
+
+        /* ie scrollbar color properties */
+        scrollbar-base-color: #ffffff;
+        scrollbar-face-color: #00BCD4;
+        scrollbar-3dlight-color: #00BCD4;
+        scrollbar-highlight-color: #00BCD4;
+        scrollbar-track-color: #ffffff;
+        scrollbar-arrow-color: #00BCD4;
+        scrollbar-shadow-color: #00BCD4;
+        scrollbar-dark-shadow-color: #00BCD4;
+    }
+
+    .table-scroll-container:after {
+        content: "";
+        height: 32px;
+        display: block;
+    }
+
+}
+
+/*Edge*/
+@supports (-ms-ime-align:auto)  {
+.table-scroll-container {
+        margin-right: -10px;
+        padding-top: 16px;
+        margin-top: -16px;
+        margin-bottom: -16px;
+        padding-bottom: 16px;
+}
+
+.table-scroll-container:after {
+    content: "";
+    height: 16px;
+    display: block;
+}
+}
+
+/*Firefox*/
+/*From version 64 - https://drafts.csswg.org/css-scrollbars-1/*/
+.table-scroll-container {
+    scrollbar-width: 10px;
+    scrollbar-color: #00BCD4 #ffffff;
+}
+
+
+/*Chrome*/
+.table-scroll-container::-webkit-scrollbar-track {
+    background-color: #ffffff;
+    width: 4px;
+}
+
+.table-scroll-container::-webkit-scrollbar-thumb {
+    background-color: #00BCD4;
+    border: 1px solid transparent;
+    background-clip: content-box;
+    border-radius: 5px;
+}
+
+.table-scroll-container::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    -webkit-appearance: none;
 }
 
 .floatThead-wrapper { cursor: pointer; }
