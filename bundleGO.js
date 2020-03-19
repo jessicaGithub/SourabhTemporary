@@ -39341,7 +39341,9 @@
 					// SOURABH START
 					table.wrap('<div class="table-scroll-container"></div>');
                     tableContainer.append('<div class="fixed-btn-container"><div class="fixed-btn"><div class="imageZoomIcon"><div class="material-icons">zoom_out_map</div></div></div></div></div>');
-                    // SOURABH END
+					var tableScrollContainer = table.closest('.table-scroll-container');
+					table.find("caption.title > div").css("maxWidth", tableScrollContainer.width());
+					// SOURABH END
 
 					// Change some css
 					table.css("cursor", "pointer");
@@ -39349,6 +39351,7 @@
 						var cols = table.find('colgroup > col');
 						// SOURABH START
 						var currentParentWidth = table.width();
+						table.find("caption.title > div").css("maxWidth", tableScrollContainer.width());
 						// console.log( "currentParentWidth " + currentParentWidth);
 						if (cols.length) {
 
@@ -39393,7 +39396,8 @@
 							var captionDivDistance = captionDivOffset - (contentAreaOffset+(contentAreaHalfWidth-captionTextWidth));
 							var desiredOffset = captionOffset-captionDivDistance+50;
 							table.find("caption").offset({top:captionOffset.top, left:desiredOffset});
-                            table.find("caption").attr("data-closed-offset",desiredOffset);
+							table.find("caption").attr("data-closed-offset",desiredOffset);
+
 
 						}
 					})();
@@ -39429,7 +39433,7 @@
                     });
 
                     //SOURABH START
-                    table.floatThead('reflow');
+					table.floatThead('reflow');
 
                     //SOURABH END
 				}
@@ -39460,8 +39464,10 @@
                     $("#expandedImageModal").remove();
 
                     //SOURABH START
-                    table.floatThead('reflow');
+					table.floatThead('reflow');
 
+					var tableScrollContainer = table.closest('.table-scroll-container');
+					table.find("caption.title > div").css("maxWidth", tableScrollContainer.width());
                     //SOURABH END
 				}
 
@@ -39500,7 +39506,10 @@
 
 
                     //SOURABH START
-                    table.floatThead('reflow');
+					table.floatThead('reflow');
+
+					var tableScrollContainer = table.closest('.table-scroll-container');
+					table.find("caption.title > div").css("maxWidth", tableScrollContainer.width());
 
                     //SOURABH END
 				});
@@ -39508,13 +39517,19 @@
 
 				if (tableContainer.data('expandable-table-expanded')) {
 					// Off
-
-                    closeTable();
+					closeTable();
 				} else {
 					// On
+					openTable();
 
-                    openTable();
 				}
+
+				//SOURABH START
+				var tableScrollContainer = table.closest('.table-scroll-container');
+				table.find("caption.title > div").css("maxWidth", tableScrollContainer.width());
+
+				//SOURABH END
+
 			}
 		}]);
 
@@ -39944,12 +39959,12 @@
 					var tableScrollContainer = $( this ).closest('.table-scroll-container');
 					var table = $( this );
 					table.on("floatThead", function(){
-						var newWidth = table.closest(".table-scroll-container").width() - 10;
+						var newWidth = table.closest(".table-scroll-container").width();
 						tableContainer.find(".floatThead-container").css({width: newWidth});
 					})
 					table.on("reflowed", function(){
 						setTimeout(function(){
-							var newWidth = table.closest(".table-scroll-container").width() - 10;
+							var newWidth = table.closest(".table-scroll-container").width();
 							tableContainer.find(".floatThead-container").css({width: newWidth});
 						}, 1000);
 					})
@@ -39958,8 +39973,6 @@
 						tableScrollContainer.addClass("table-scroll-container--x-only");
 						// no floathead for these small tables
 					} else {
-						// do not init fixed headers on tables inside li elements
-						// if (table.parents("li").length === 0) {
 							table.floatThead({
 								top: 0,
 								scrollContainer: function(table){
@@ -39967,7 +39980,6 @@
 								},
 								position: 'absolute'
 							});
-						// }
 					}
 					table.floatThead('reflow');
 
@@ -39978,7 +39990,7 @@
 
 
 				$(".floatThead-wrapper").each(function(e){
-					var newWidth = $(".table-scroll-container").width() - 10;
+					var newWidth = $(".table-scroll-container").width();
 					$(this).find(".floatThead-container").css({width: newWidth});
 				});
 
@@ -39989,23 +40001,25 @@
 					targetTableBody.find(".tbody").click();
 				});
 
-
-				$(".expandable-table--open").each(function(){
-					$(this).find("table").click();
-				})
-				$(".table-scroll-container").css("opacity", "1");
-				$(".expandable-table").css("opacity", "1");
-
 				setTimeout(function(){
+					$(".expandable-table--open").each(function(){
+						$(this).find("table").click();
+					})
+					$(".table-scroll-container").css("opacity", "1");
+					$(".expandable-table").css("opacity", "1");
 
 					var hash = window.location.hash;
-					var itemId = hash.substring(1, hash.length);
-					var targetEl = document.getElementById(itemId);
-					var x = $(targetEl).offset();
-					$("html").animate({
-						scrollTop: x.top - 50
-					}, 2000);
+					if ( hash != '') {
+						var itemId = hash.substring(1, hash.length);
+						var targetEl = document.getElementById(itemId);
+						var x = $(targetEl).offset();
+						$("html").animate({
+							scrollTop: x.top - 50
+						}, 2000);
+					}
 				}, 2000);
+
+
 
 
 

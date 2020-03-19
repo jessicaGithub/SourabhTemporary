@@ -12042,7 +12042,7 @@ body.no-scroll {
         scrollbar-face-color: #00BCD4;
         scrollbar-3dlight-color: #00BCD4;
         scrollbar-highlight-color: #00BCD4;
-        scrollbar-track-color: #ffffff;
+        scrollbar-track-color: transparent;
         scrollbar-arrow-color: #00BCD4;
         scrollbar-shadow-color: #00BCD4;
         scrollbar-dark-shadow-color: #00BCD4;
@@ -12076,15 +12076,19 @@ body.no-scroll {
 /*Firefox*/
 /*From version 64 - https://drafts.csswg.org/css-scrollbars-1/*/
 .table-scroll-container {
+    -webkit-appearance: none;
+    -moz-appearance: none !important;
     scrollbar-width: 10px;
-    scrollbar-color: #00BCD4 #ffffff;
+    scrollbar-color: #00BCD4 transparent !important;
 }
 
 
 /*Chrome*/
 .table-scroll-container::-webkit-scrollbar-track {
-    background-color: #ffffff;
+    background-color: transparent;
     width: 4px;
+    -webkit-appearance: none;
+    -moz-appearance: none !important;
 }
 
 .table-scroll-container::-webkit-scrollbar-thumb {
@@ -12092,12 +12096,15 @@ body.no-scroll {
     border: 1px solid transparent;
     background-clip: content-box;
     border-radius: 5px;
+    -webkit-appearance: none;
+    -moz-appearance: none !important;
 }
 
 .table-scroll-container::-webkit-scrollbar {
     width: 10px;
     height: 10px;
     -webkit-appearance: none;
+    -moz-appearance: none !important;
 }
 
 .floatThead-wrapper { cursor: pointer; }
@@ -12164,23 +12171,13 @@ div.topic .expandable-table table:before { display: none !important; }
 .expandable-table.expandable-table--open .table-scroll-container table {
     left: 0 !important;
     top: 0;
+    border-color: #606060 !important;
 }
 
 .expandable-table.expandable-table--open .table-scroll-container table caption {
-    padding-left: 15%;
     background: transparent;
 }
 
-table > caption.title::before {
-    content: attr(data-label);
-}
-
-table > caption.title > div {
-    display: inline-block !important;
-    max-width: 380px;
-    vertical-align: top;
-    text-align: left;
-}
 div.topic .table-container table {
     background: white;
     margin-top: 30px;
@@ -12189,14 +12186,24 @@ div.topic .table-container table {
 div.topic .table-container table caption {
     caption-side: initial;
     left: 0 !important;
-    text-align: left;
-    padding-left: 230px;
     z-index: 2;
     background: white;
     margin-bottom: 0 !important;
-    padding-bottom: 1.25em;
+    padding: 0 0 1.25em;
+    text-align: left;
+}
+
+div.topic .table-container table caption.title::before {
+    content: '';
+}
+
+div.topic .table-container table caption.title > div {
+    text-align: center;
+    display: block !important;
+    padding: 0 80px;
 }
 
 div.topic table.table th.entry .p.rotate-text{
     padding: 0 10px;
+    display: inline;
 }
