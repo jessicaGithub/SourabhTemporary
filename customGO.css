@@ -11882,9 +11882,7 @@ div.topic table {
 }
 
 /* Ently Li margin fix */
-div.topic table ol.firstLevelOl li.tableParaLi{
-margin-left: 0px !important;
-}
+div.topic table ol.firstLevelOl li.tableParaLi{margin-left: 0px !important;display: flex;flex-direction: row;}
 
 /* CSS Change for Annex and Appendix Links */
 .topic .contentnode .annex-links ol{
@@ -12148,6 +12146,10 @@ div.topic .expandable-table table:before { display: none !important; }
     left: 5%;
 }
 
+div.topic .expandable-table.expandable-table--open  table {
+    border-color: #dee2e6 !important;
+}
+
 .expandable-table.expandable-table--open .table-scroll-container {
     max-width: none;
     max-height: none;
@@ -12178,6 +12180,12 @@ div.topic .expandable-table table:before { display: none !important; }
     background: transparent;
 }
 
+/* .expandable-table.expandable-table--open .table-scroll-container table tr.size-row,
+.expandable-table.expandable-table--open .table-scroll-container table tr.size-row > th {
+    height: 0 !important;
+    padding: 0 0 14px;
+} */
+
 div.topic .table-container table {
     background: white;
     margin-top: 30px;
@@ -12200,10 +12208,11 @@ div.topic .table-container table caption.title::before {
 div.topic .table-container table caption.title > div {
     text-align: center;
     display: block !important;
-    padding: 0 80px;
+    padding: 0 80px 1.25em;
 }
 
 div.topic table.table th.entry .p.rotate-text{
     padding: 0 10px;
     display: inline;
+    transform: none;
 }
