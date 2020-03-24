@@ -662,10 +662,12 @@
               $headerCells.eq(i).width(widths[i]);
               $tableCells.eq(i).width(widths[i]);
 
-                var tableTdRow = $table.find(".tbody > tr.row");
-                for( var rn = 0, cn = i; rn < tableTdRow.length; rn++) {
-                    $(tableTdRow[rn]).find("td.entry:nth-child(" + cn + ")").css('width', widths[cn-1]);
-                }
+                // var tableTdRow = $table.find(".tbody > tr.row");
+                // var tableThRow = $table.find(".thead > tr.row");
+                // for( var rn = 0, cn = i; rn < tableTdRow.length; rn++) {
+                //     $(tableTdRow[rn]).find("td.entry:nth-child(" + cn + ")").css('width', widths[cn-1]);
+                //     $(tableThRow[rn]).find("th.entry:nth-child(" + cn + ")").css('width', widths[cn-1]);
+                // }
             }
             refloat();
           } else {

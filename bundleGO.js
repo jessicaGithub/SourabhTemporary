@@ -39339,7 +39339,8 @@
                     });
 
 					// SOURABH START
-					table.wrap('<div class="table-scroll-container"></div>');
+					var counter=0;
+					table.wrap('<div class="table-scroll-container" id="scrollwrapper' +  counter + '" data-simplebar data-simplebar-force-visible></<div>');
                     tableContainer.append('<div class="fixed-btn-container"><div class="fixed-btn"><div class="imageZoomIcon"><div class="material-icons">zoom_out_map</div></div></div></div></div>');
 					var tableScrollContainer = table.closest('.table-scroll-container');
 					table.find("caption.title > div").css("maxWidth", tableScrollContainer.width());
@@ -39355,15 +39356,15 @@
 						// console.log( "currentParentWidth " + currentParentWidth);
 						if (cols.length) {
 
-							var counter = 1;
+							// var counter = 1;
 							var width = _lodash2.default.reduce(cols, function (sum, n) {
 								n = (0, _jquery2.default)(n);
 								var percentageSum = sum + parseInt(n.css('width'), 10);
-								var minWidthForHeaderCol = parseInt(n.css('width'), 10) * currentParentWidth / 100;
+								// var minWidthForHeaderCol = parseInt(n.css('width'), 10) * currentParentWidth / 100;
 								// console.log( "minWidthForHeaderCol " + minWidthForHeaderCol);
 
-								(0, _jquery2.default)(n).parent().parent().find(".thead tr th:nth-child(" + counter + ")").css("minWidth", minWidthForHeaderCol );
-								counter++;
+								// (0, _jquery2.default)(n).parent().parent().find(".thead tr th:nth-child(" + counter + ")").css("minWidth", minWidthForHeaderCol );
+								// counter++;
 								return percentageSum;
 							}, 0);
 							// SOURABH ENDS
@@ -39949,83 +39950,85 @@
 			return $.ajax( options );
 		};
 
-        setTimeout(function(){
+			// import simplebar
+			$.cachedScript("https://cdnjs.cloudflare.com/ajax/libs/simplebar/5.1.0/simplebar.min.js");
+			setTimeout(function(){
 
-			// import FloatHeadJS
-			$.cachedScript( "https://cdnjs.cloudflare.com/ajax/libs/floatthead/2.1.4/jquery.floatThead.min.js" ).done(function( script, textStatus ) {
-
-				$(".table-scroll-container > table").each(function(){
-					var tableContainer = $( this ).closest('.table-container');
-					var tableScrollContainer = $( this ).closest('.table-scroll-container');
-					var table = $( this );
-					table.on("floatThead", function(){
-						var newWidth = table.closest(".table-scroll-container").width();
-						tableContainer.find(".floatThead-container").css({width: newWidth});
-					})
-					table.on("reflowed", function(){
-						setTimeout(function(){
+				// import FloatHeadJS
+				$.cachedScript( "https://cdnjs.cloudflare.com/ajax/libs/floatthead/2.1.4/jquery.floatThead.min.js" ).done(function( script, textStatus ) {
+					console.log(textStatus);
+					$(".table-scroll-container > table").each(function(){
+						var tableContainer = $( this ).closest('.table-container');
+						var tableScrollContainer = $( this ).closest('.table-scroll-container');
+						var table = $( this );
+						table.on("floatThead", function(){
 							var newWidth = table.closest(".table-scroll-container").width();
 							tableContainer.find(".floatThead-container").css({width: newWidth});
-						}, 1000);
-					})
+						})
+						table.on("reflowed", function(){
+							setTimeout(function(){
+								var newWidth = table.closest(".table-scroll-container").width();
+								tableContainer.find(".floatThead-container").css({width: newWidth});
+							}, 1000);
+						})
 
-					if(table.height() < tableScrollContainer.height() ) {
-						tableScrollContainer.addClass("table-scroll-container--x-only");
-						// no floathead for these small tables
-					} else {
-							table.floatThead({
-								top: 0,
-								scrollContainer: function(table){
-									return table.closest('.table-scroll-container');
-								},
-								position: 'absolute'
-							});
-					}
-					table.floatThead('reflow');
+						if(table.height() < tableScrollContainer.height() ) {
+							tableScrollContainer.addClass("table-scroll-container--x-only");
+							// no floathead for these small tables
+						} else {
+								table.floatThead({
+									top: 0,
+									scrollContainer: function(table){
+										return table.closest('.table-scroll-container');
+									},
+									position: 'absolute'
+								});
+						}
+						table.floatThead('reflow');
 
-					$(".expandable-table").css("opacity", "0");
-					tableScrollContainer.css("opacity", "0");
-					table.click();
-				});
-
-
-				$(".floatThead-wrapper").each(function(e){
-					var newWidth = $(".table-scroll-container").width();
-					$(this).find(".floatThead-container").css({width: newWidth});
-				});
-
-				$(document).on("click", ".floatThead-wrapper .thead, .fixed-btn", function(e){
-					e.preventDefault();
-					e.stopPropagation();
-					var targetTableBody = $(this).closest(".expandable-table");
-					targetTableBody.find(".tbody").click();
-				});
-
-				setTimeout(function(){
-					$(".expandable-table--open").each(function(){
-						$(this).find("table").click();
-					})
-					$(".table-scroll-container").css("opacity", "1");
-					$(".expandable-table").css("opacity", "1");
-
-					var hash = window.location.hash;
-					if ( hash != '') {
-						var itemId = hash.substring(1, hash.length);
-						var targetEl = document.getElementById(itemId);
-						var x = $(targetEl).offset();
-						$("html").animate({
-							scrollTop: x.top - 50
-						}, 2000);
-					}
-				}, 2000);
+						$(".expandable-table").css("opacity", "0");
+						tableScrollContainer.css("opacity", "0");
+						table.click();
+					});
 
 
+					$(".floatThead-wrapper").each(function(e){
+						var newWidth = $(".table-scroll-container").width();
+						$(this).find(".floatThead-container").css({width: newWidth});
+					});
+
+
+					$(document).on("click", ".floatThead-wrapper .thead, .fixed-btn", function(e){
+						e.preventDefault();
+						e.stopPropagation();
+						var targetTableBody = $(this).closest(".expandable-table");
+						targetTableBody.find(".tbody").click();
+					});
+
+					setTimeout(function(){
+						$(".expandable-table--open").each(function(){
+							$(this).find("table").click();
+						})
+						$(".table-scroll-container").css("opacity", "1");
+						$(".expandable-table").css("opacity", "1");
+
+						var hash = window.location.hash;
+						if ( hash != '') {
+							var itemId = hash.substring(1, hash.length);
+							var targetEl = document.getElementById(itemId);
+							var x = $(targetEl).offset();
+							$("html").animate({
+								scrollTop: x.top - 50
+							}, 2000);
+						}
+					}, 2000);
+				})
+			}, 3000);
 
 
 
-			})
-		}, 3000);
 	});
+
 
 	// SOURABH ENDS
 
