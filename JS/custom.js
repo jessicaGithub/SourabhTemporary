@@ -11,14 +11,14 @@ if(isEdge || isIE){
             $('.toccontainer').addClass( "toccontainer-top-ie-scroll" );
         }else{
             if(scroll > (contentHeight+70)){
-                $('.toccontainer').removeClass( "toccontainer-top-ie-scroll" );  
+                $('.toccontainer').removeClass( "toccontainer-top-ie-scroll" );
 				var topToc = contentHeight-150;
                 $('.toccontainer').css({'top':topToc+'px'});
             }
             else{
 
             $('.toccontainer').css({'top':0+'px'});
-            $('.toccontainer').removeClass( "toccontainer-top-ie-scroll" );  
+            $('.toccontainer').removeClass( "toccontainer-top-ie-scroll" );
             }
         }
 
@@ -28,12 +28,12 @@ if(isEdge || isIE){
         if(typeof startValue !== typeof undefined && startValue !== false){
             var styleValue = $(this).attr('style');
             var counterValue = $(this).attr('data-outputclass');
-            if(!(typeof styleValue !== typeof undefined && styleValue !== false && styleValue.indexOf("counter-increment:")>-1) 
+            if(!(typeof styleValue !== typeof undefined && styleValue !== false && styleValue.indexOf("counter-increment:")>-1)
                 && !(typeof counterValue !== typeof undefined && counterValue !== false && counterValue.indexOf("noChapterNumbering")>-1)){
 					$(this).attr("data-customie","customparanumber");
                     $(this).attr("style","counter-increment: my-counter "+(parseInt(startValue)-1)+";");
                 }
-        } 
+        }
     });
 
 
@@ -47,16 +47,16 @@ $(document).ready(function(){
         var attr = $(this).attr('data-outputclass');
 if (typeof attr !== typeof undefined && attr !== false) {
     var cls = $(this).attr("data-outputclass");
-        $(this).addClass(cls); 
+        $(this).addClass(cls);
 }
 
-/* fix for headings */        
+/* fix for headings */
      if($(this).hasClass('breadcrumb'))
      {
 
 		if($(this).parent().parent().hasClass('reference'))
         {
-			$(this).parent().parent().addClass('clearfix');	
+			$(this).parent().parent().addClass('clearfix');
         }
      }
 
@@ -76,7 +76,7 @@ if (typeof attr !== typeof undefined && attr !== false) {
         }
 
 	});
-	
+
 	$("th").each(function(){
 			if($(this).attr('rotate') == 'yes'){
 				$(this).find('.p').addClass('rotate-text');
@@ -93,7 +93,7 @@ if (typeof attr !== typeof undefined && attr !== false) {
         }
 
 	});
-	
+
 /* fix for replacing nbsp with wbr */
 
   $("div.topic div.p").html(function (i, html) {
@@ -111,8 +111,98 @@ if (typeof attr !== typeof undefined && attr !== false) {
       $(this).html(contentHTML);
   });
 
-});
+  // FIX FOR LARGE TABLES START
+		// Setup script import and cache it
+		$.cachedScript = function( url, options ) {
+			options = $.extend( options || {}, {
+				dataType: "script",
+				cache: true,
+				url: url
+			});
 
+			// Use $.ajax() since it is more flexible than $.getScript
+			// Return the jqXHR object so we can chain callbacks
+			return $.ajax( options );
+		};
+
+        setTimeout(function(){
+
+			// import FloatHeadJS
+			/* Changes by Sourabh - Start*/
+			$.cachedScript( "/apps/land-doctrine/clientlibs/clientlib-fmdita/js/floaTheadPlugin.js" ).done(function( script, textStatus ) {
+				/* Changes by Sourabh - End*/
+
+				$(".table-scroll-container > table").each(function(){
+					var tableContainer = $( this ).closest('.table-container');
+					var tableScrollContainer = $( this ).closest('.table-scroll-container');
+					var table = $( this );
+					table.on("floatThead", function(){
+						var newWidth = table.closest(".table-scroll-container").width();
+						tableContainer.find(".floatThead-container").css({width: newWidth});
+					})
+					table.on("reflowed", function(){
+						setTimeout(function(){
+							var newWidth = table.closest(".table-scroll-container").width();
+							tableContainer.find(".floatThead-container").css({width: newWidth});
+						}, 1000);
+					})
+
+					if(table.height() < tableScrollContainer.height() ) {
+						tableScrollContainer.addClass("table-scroll-container--x-only");
+						// no floathead for these small tables
+					} else {
+							table.floatThead({
+								top: 0,
+								scrollContainer: function(table){
+									return table.closest('.table-scroll-container');
+								},
+								position: 'absolute'
+							});
+					}
+					table.floatThead('reflow');
+
+					$(".expandable-table").css("opacity", "0");
+					tableScrollContainer.css("opacity", "0");
+					table.click();
+				});
+
+
+				$(".floatThead-wrapper").each(function(e){
+					var newWidth = $(".table-scroll-container").width();
+					$(this).find(".floatThead-container").css({width: newWidth});
+				});
+
+				$(document).on("click", ".floatThead-wrapper .thead, .fixed-btn", function(e){
+					e.preventDefault();
+					e.stopPropagation();
+					var targetTableBody = $(this).closest(".expandable-table");
+					targetTableBody.find(".tbody").click();
+				});
+
+				setTimeout(function(){
+						$(".expandable-table--open").each(function(){
+							$(this).find("table").click();
+						})
+						$(".table-scroll-container").css("opacity", "1");
+						$(".expandable-table").css("opacity", "1");
+
+						var hash = window.location.hash;
+						if ( hash != '') {
+							var itemId = hash.substring(1, hash.length);
+							var targetEl = document.getElementById(itemId);
+							var x = $(targetEl).offset();
+							$("html").animate({
+								scrollTop: x.top - 50
+							}, 2000);
+						}
+				}, 2000);
+
+			})
+		}, 3000);
+
+
+});
+  // FIX FOR LARGE TABLES ENDS
 
 
 

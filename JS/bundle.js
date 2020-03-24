@@ -10153,7 +10153,8 @@
 			});
 		});
 
-		jQuery.each(("blur focus focusin focusout resize scroll click dblclick " + "mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave " + "change select submit keydown keypress keyup contextmenu").split(" "), function (i, name) {
+		jQuery.each(("blur focus focusin focusout scroll click dblclick " + "mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave " + "change select submit keydown keypress keyup contextmenu").split(" "), function (i, name) {
+			// jQuery.each(("blur focus focusin focusout resize scroll click dblclick " + "mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave " + "change select submit keydown keypress keyup contextmenu").split(" "), function (i, name) {
 
 			// Handle event binding
 			jQuery.fn[name] = function (data, fn) {
@@ -39318,33 +39319,54 @@
 				var that = this;
 				(0, _jquery2.default)('.table-container > table').each(function (i, table) {
 					table = (0, _jquery2.default)(table);
-					var tableContainer = table.closest('.table-container');
+                    var tableContainer = table.closest('.table-container');
 
 					// Skip small tables
 					if (table.width() <= tableContainer.width()) {
-					if(table.hasClass('expand-150') || table.hasClass('expand-175') || table.hasClass('expand-200') || table.hasClass('expand-250')){
+						if(table.hasClass('expand-150') || table.hasClass('expand-175') || table.hasClass('expand-200') || table.hasClass('expand-250')){
 
+						}
+						else{
+							return;
+						}
 					}
-					else{
-						return;
-					}
-					}
+
 					// Store init info
 					tableContainer.data('expandable-table-expanded', 0);
 					tableContainer.addClass('expandable-table');
 					tableContainer.css({
 						"overflow-x": 'auto'
-					});
+                    });
+
+					// FIX FOR LARGE TABLES START
+					table.wrap('<div class="table-scroll-container"></div>');
+                    tableContainer.append('<div class="fixed-btn-container"><div class="fixed-btn"><div class="imageZoomIcon"><div class="material-icons">zoom_out_map</div></div></div></div></div>');
+					var tableScrollContainer = table.closest('.table-scroll-container');
+					table.find("caption.title > div").css("maxWidth", tableScrollContainer.width());
+                    // FIX FOR LARGE TABLES END
 
 					// Change some css
 					table.css("cursor", "pointer");
 					(function expandTableWidth() {
 						var cols = table.find('colgroup > col');
+						// FIX FOR LARGE TABLES START
+						var currentParentWidth = table.width();
+						table.find("caption.title > div").css("maxWidth", tableScrollContainer.width());
+						// console.log( "currentParentWidth " + currentParentWidth);
 						if (cols.length) {
+
+							var counter = 1;
 							var width = _lodash2.default.reduce(cols, function (sum, n) {
 								n = (0, _jquery2.default)(n);
-								return sum + parseInt(n.css('width'), 10);
+								var percentageSum = sum + parseInt(n.css('width'), 10);
+								var minWidthForHeaderCol = parseInt(n.css('width'), 10) * currentParentWidth / 100;
+								// console.log( "minWidthForHeaderCol " + minWidthForHeaderCol);
+
+								(0, _jquery2.default)(n).parent().parent().find(".thead tr th:nth-child(" + counter + ")").css("minWidth", minWidthForHeaderCol );
+								counter++;
+								return percentageSum;
 							}, 0);
+							// FIX FOR LARGE TABLES ENDS
 							if(table.hasClass('expand-150')){
 							/* Setting width to (width * 1.25) to match font-size in sites output */
 								table.css("width", '188%');
@@ -39374,12 +39396,13 @@
 							var captionDivDistance = captionDivOffset - (contentAreaOffset+(contentAreaHalfWidth-captionTextWidth));
 							var desiredOffset = captionOffset-captionDivDistance+50;
 							table.find("caption").offset({top:captionOffset.top, left:desiredOffset});
-							table.find("caption").attr("data-closed-offset",desiredOffset);
+                            table.find("caption").attr("data-closed-offset",desiredOffset);
+
 						}
 					})();
 
 					// Events
-					table.on('click', that.handleClick);
+                    table.on('click', that.handleClick);
 				});
 			}
 		}, {
@@ -39406,10 +39429,19 @@
 						"position": 'absolute',
 						"z-index": '99',
 						"left": "-" + computePosition() + "px"
-					});
+                    });
+
+                    //FIX FOR LARGE TABLES START
+                    table.floatThead('reflow');
+
+                    //FIX FOR LARGE TABLES END
 				}
 
 				function closeTable() {
+                    //FIX FOR LARGE TABLES START
+                    (0, _jquery2.default)('body').removeClass("no-scroll");
+                    (0, _jquery2.default)('.fixed-btn-container').removeClass("hide-temp");
+                    //FIX FOR LARGE TABLES END
 					table.css({
 						"position": '',
 						"z-index": '0',
@@ -39421,17 +39453,28 @@
 						height: '',
 						"overflow-x": 'auto'
 					});
-				var closedCaptionOffset = tableContainer.find("caption").attr("data-closed-offset");
+				    var closedCaptionOffset = tableContainer.find("caption").attr("data-closed-offset");
 					var currentCaptionOffsetTop = tableContainer.find("caption").offset().top;
 					tableContainer.find("caption").offset({top:currentCaptionOffsetTop, left:closedCaptionOffset});
 					tableContainer.removeClass('expandable-table--open');
 					tableContainer.find("caption").removeClass("white-color-caption");
 					(0, _jquery2.default)(window).unbind('resize', closeTable);
 					tableContainer.data('expandable-table-expanded', 0);
-					$("#expandedImageModal").remove();
+                    $("#expandedImageModal").remove();
+
+                    //FIX FOR LARGE TABLES START
+                    table.floatThead('reflow');
+
+					var tableScrollContainer = table.closest('.table-scroll-container');
+					table.find("caption.title > div").css("maxWidth", tableScrollContainer.width());
+                    //FIX FOR LARGE TABLES END
 				}
 
 				function openTable() {
+                    //FIX FOR LARGE TABLES START
+                    (0, _jquery2.default)('body').addClass("no-scroll");
+                    (0, _jquery2.default)('.fixed-btn-container').addClass("hide-temp");
+                    //FIX FOR LARGE TABLES END
 					moveTable();
 
 					tableContainer.css({
@@ -39458,19 +39501,31 @@
 					$(".expandable-table--open #expandedImageModal .expandedImageModalClose").click(function(event) {
 					var div1 = (0, _jquery2.default)(this);
 					closeTable();
-					$("#expandedImageModal").remove();
+                    $("#expandedImageModal").remove();
+
+
+                    //FIX FOR LARGE TABLES START
+                    table.floatThead('reflow');
+					var tableScrollContainer = table.closest('.table-scroll-container');
+					table.find("caption.title > div").css("maxWidth", tableScrollContainer.width());
+                    //FIX FOR LARGE TABLES END
 				});
 				}
 
 				if (tableContainer.data('expandable-table-expanded')) {
 					// Off
 
-					closeTable();
+                    closeTable();
 				} else {
 					// On
 
-					openTable();
+                    openTable();
 				}
+				//FIX FOR LARGE TABLES START
+				var tableScrollContainer = table.closest('.table-scroll-container');
+				table.find("caption.title > div").css("maxWidth", tableScrollContainer.width());
+
+				//FIX FOR LARGE TABLES END
 			}
 		}]);
 
@@ -39732,7 +39787,7 @@
 							position= '1088';
 						}return position;
 				}
-	exports.default = ExpandableFigure;
+    exports.default = ExpandableFigure;
 
 	/***/ }),
 	/* 52 */
@@ -39751,134 +39806,3 @@
 
 	/***/ })
 	/******/ ]);
-	// for hosted js library
-	console.log('testing lib is working!')
-
-	$( "ol.firstLevelOl" ).each(function() {
-	  var   val=1;
-		if ( $(this).attr("start")){
-	  val =  $(this).attr("start");
-		}
-	  val=val-1;
-	 val= 'my-counter '+ val;
-	$(this ).css('counter-increment',val );
-	});
-	var isIE = /*@cc_on!@*/false || !!document.documentMode;
-	var isEdge = !isIE && !!window.StyleMedia;
-	if(isEdge || isIE){
-		$('.toccontainer').addClass( "toccontainer-top-ie" );
-		$(window).scroll(function (event) {
-			var scroll = $(window).scrollTop();
-			// Activate sticky for IE and Edge if scrolltop is more than content top
-			var contentHeight = $('.article-content').height();
-			var contentTop = $('.article-content').offset().top;
-			if ( scroll > contentTop && scroll < (contentHeight+70)) {
-				$('.toccontainer').addClass( "toccontainer-top-ie-scroll" );
-			}else{
-				if(scroll > (contentHeight+70)){
-					$('.toccontainer').removeClass( "toccontainer-top-ie-scroll" );
-					var topToc = contentHeight-150;
-					$('.toccontainer').css({'top':topToc+'px'});
-				}
-				else{
-
-				$('.toccontainer').css({'top':0+'px'});
-				$('.toccontainer').removeClass( "toccontainer-top-ie-scroll" );
-				}
-			}
-
-		});
-		$("div.topic ol").each(function(){
-			var startValue =  $(this).attr('start');
-			if(typeof startValue !== typeof undefined && startValue !== false){
-				var styleValue = $(this).attr('style');
-				var counterValue = $(this).attr('data-outputclass');
-				if(!(typeof styleValue !== typeof undefined && styleValue !== false && styleValue.indexOf("counter-increment:")>-1)
-					&& !(typeof counterValue !== typeof undefined && counterValue !== false && counterValue.indexOf("noChapterNumbering")>-1)){
-						$(this).attr("data-customie","customparanumber");
-						$(this).attr("style","counter-increment: my-counter "+(parseInt(startValue)-1)+";");
-					}
-			}
-		});
-
-
-	}
-	else{
-	$('.toccontainer').addClass( "toccontainer-top-all" );
-	}
-	$(document).ready(function(){
-		$("div,td,section").each(function() {
-
-			var attr = $(this).attr('data-outputclass');
-	if (typeof attr !== typeof undefined && attr !== false) {
-		var cls = $(this).attr("data-outputclass");
-			$(this).addClass(cls);
-	}
-
-	/* fix for headings */
-		 if($(this).hasClass('breadcrumb'))
-		 {
-
-			if($(this).parent().parent().hasClass('reference'))
-			{
-				$(this).parent().parent().addClass('clearfix');
-			}
-		 }
-
-		});
-		$("colgroup").each(function() {
-			if($(this).hasClass('FormatB'))
-			{
-				$(this).parent().addClass('FormatB');
-
-			}
-			else{
-				if($(this).hasClass('vuitui'))
-			{
-				$(this).parent().addClass('vuitui');
-
-			}
-			}
-
-		});
-
-		$("th").each(function(){
-				if($(this).attr('rotate') == 'yes'){
-					$(this).find('.p').addClass('rotate-text');
-				}
-		});
-
-		$("object").each(function(){
-			//console.log("object");
-		   //console.log($(this).attr('data'));
-			var fileName = $(this).attr('data');
-			var formatCheck = '.mp4';
-			if(fileName.indexOf(formatCheck) != -1){
-				 $(this).css({"width":"100%" , "height":"400px"});
-			}
-
-		});
-
-	/* fix for replacing nbsp with wbr */
-
-	  $("div.topic div.p").html(function (i, html) {
-		   return html.replace(/&nbsp;/g, ' <wbr> ');
-		});
-
-	 // fix for showing pop for glossary.
-	   $("a#ld-glossentry").each(function(index) {
-		  var word = $(this).text();
-		  var def = $(this).attr("data-definition");
-		  // Update all instances of that word in the content page with mouse over def.
-		  var contentHTML = $(this).html();
-		  //contentHTML = contentHTML+ '<p id="ldgloss-popup" >'+ def +'</p>';
-		  contentHTML = '<span title="' + def + '">'+contentHTML+ '</span>';
-		  $(this).html(contentHTML);
-	  });
-
-	});
-
-
-
-
-

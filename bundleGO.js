@@ -39952,7 +39952,7 @@
         setTimeout(function(){
 
 			// import FloatHeadJS
-			$.cachedScript( "https://cdnjs.cloudflare.com/ajax/libs/floatthead/2.1.4/jquery.floatThead.min.js" ).done(function( script, textStatus ) {
+			$.cachedScript( "/apps/land-doctrine/clientlibs/clientlib-fmdita/js/floaTheadPlugin.js" ).done(function( script, textStatus ) {
 
 				$(".table-scroll-container > table").each(function(){
 					var tableContainer = $( this ).closest('.table-container');
