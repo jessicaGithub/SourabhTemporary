@@ -12172,7 +12172,7 @@ div.topic .expandable-table table:before { display: none !important; }
 .expandable-table.expandable-table--open {
     position: fixed !important;
     z-index: 5000;
-    top: 40px;
+    top: 5vh;
     left: 5%;
 }
 
@@ -12182,16 +12182,18 @@ div.topic .expandable-table.expandable-table--open  table {
 
 .expandable-table.expandable-table--open .table-scroll-container {
     max-width: none;
-    max-height: none;
+    max-height: 90vh;
     overflow: scroll;
     position: fixed;
     z-index: 100;
     background: black;
     border: none;
     top: 0;
+    bottom: 0;
     left: 5%;
     height: 90%;
     width: 90%;
+    margin: 5vh auto;
 }
 
 .expandable-table.expandable-table--open .table-scroll-container--x-only {
@@ -12209,12 +12211,6 @@ div.topic .expandable-table.expandable-table--open  table {
 .expandable-table.expandable-table--open .table-scroll-container table caption {
     background: transparent;
 }
-
-/* .expandable-table.expandable-table--open .table-scroll-container table tr.size-row,
-.expandable-table.expandable-table--open .table-scroll-container table tr.size-row > th {
-    height: 0 !important;
-    padding: 0 0 14px;
-} */
 
 div.topic .table-container table {
     background: white;
@@ -12245,4 +12241,8 @@ div.topic table.table th.entry .p.rotate-text{
     padding: 0 10px;
     display: inline;
     transform: none;
+}
+
+ol + div.table-container.expandable-table {
+    margin-top: 0;
 }
