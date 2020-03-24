@@ -39966,6 +39966,7 @@
 						setTimeout(function(){
 							var newWidth = table.closest(".table-scroll-container").width();
 							tableContainer.find(".floatThead-container").css({width: newWidth});
+							tableContainer.find(".floatThead-container table.floatThead-table").css({width: "100%"});
 						}, 1000);
 					})
 
