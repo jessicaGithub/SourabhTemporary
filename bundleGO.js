@@ -39340,10 +39340,11 @@
 
 					// SOURABH START
 					var counter=0;
-					table.wrap('<div class="table-scroll-container" id="scrollwrapper' +  counter + '" data-simplebar data-simplebar-force-visible></<div>');
+					table.wrap('<div class="table-scroll-container" id="scrollwrapper' +  counter + '"></<div>');
                     tableContainer.append('<div class="fixed-btn-container"><div class="fixed-btn"><div class="imageZoomIcon"><div class="material-icons">zoom_out_map</div></div></div></div></div>');
 					var tableScrollContainer = table.closest('.table-scroll-container');
 					table.find("caption.title > div").css("maxWidth", tableScrollContainer.width());
+
 					// SOURABH END
 
 					// Change some css
@@ -39466,6 +39467,7 @@
 
                     //SOURABH START
 					table.floatThead('reflow');
+					$('.table-scroll-container').perfectScrollbar('update');
 
 					var tableScrollContainer = table.closest('.table-scroll-container');
 					table.find("caption.title > div").css("maxWidth", tableScrollContainer.width());
@@ -39508,6 +39510,7 @@
 
                     //SOURABH START
 					table.floatThead('reflow');
+					$('.table-scroll-container').perfectScrollbar('update');
 
 					var tableScrollContainer = table.closest('.table-scroll-container');
 					table.find("caption.title > div").css("maxWidth", tableScrollContainer.width());
@@ -39950,14 +39953,20 @@
 			return $.ajax( options );
 		};
 
-			// import simplebar
-			$.cachedScript("https://cdnjs.cloudflare.com/ajax/libs/simplebar/5.1.0/simplebar.min.js");
+
+
 			setTimeout(function(){
 
+				// import perfect scrollbar
+				$.cachedScript("https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/0.5.2/perfect-scrollbar.min.js").done(function(script, textStatus){
+					console.log("scrollbar " + textStatus);
+					$('.table-scroll-container').perfectScrollbar();
+				});
+
 				// import FloatHeadJS
-				$.cachedScript( "https://cdnjs.cloudflare.com/ajax/libs/floatthead/2.1.4/jquery.floatThead.min.js" ).done(function( script, textStatus ) {
-					console.log(textStatus);
-					$(".table-scroll-container > table").each(function(){
+				$.cachedScript( "/apps/land-doctrine/clientlibs/clientlib-fmdita/js/floaTheadPlugin.js" ).done(function( script, textStatus ) {
+					console.log("floathead " + textStatus);
+					$(".table-scroll-container table").each(function(){
 						var tableContainer = $( this ).closest('.table-container');
 						var tableScrollContainer = $( this ).closest('.table-scroll-container');
 						var table = $( this );
@@ -39985,6 +39994,7 @@
 								});
 						}
 						table.floatThead('reflow');
+						$('.table-scroll-container').perfectScrollbar('update');
 
 						$(".expandable-table").css("opacity", "0");
 						tableScrollContainer.css("opacity", "0");
@@ -40024,6 +40034,8 @@
 					}, 2000);
 				})
 			}, 3000);
+
+
 
 
 
