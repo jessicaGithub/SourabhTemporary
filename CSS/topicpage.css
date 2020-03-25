@@ -461,7 +461,7 @@ div.topic .table-container caption {
     font-weight: normal !important;
     text-align: center;
 	/* change for table caption Center */
-    /* max-width: 660px; */	
+    /* max-width: 660px; */
     width: 100%;
 }
 
@@ -577,7 +577,7 @@ div.topic .table-container table .thead .trhead th.rotate-text {
 }
 
 /**
-  table header rotate 
+  table header rotate
 */
 div.topic .table-container table .rotate-text {
     -webkit-transform: rotate(270deg);
@@ -694,8 +694,10 @@ div.topic .table-container table.wheading td.Light.Yellow,
 div.topic .table-container table.wheading td.Yellow10 {
     font-family: 'Helvetica Neue LT Std Medium', sans-serif !important;
     font-size: 17px !important;
-    text-align: center;
-    /*font-weight: bold;*/
+	/* Changes by Sourabh - Start */
+    /*text-align: center;
+    font-weight: bold;*/
+	/* Changes by Sourabh - End*/
 }
 
 
@@ -789,15 +791,15 @@ div.topic .table-container table.wheading td.GrayVeryLight {
 div.topic .table-container table.wheading td.Salmon {
     background-color: #FF6E3D; /*CMYK(0,57,76,0)*/
 }
-div.topic .table-container table.wheading td.Light.Blue {  
-	background-color: #D5FFF6; /*CMYK(16.5,0,3.5,0)*/ 
+div.topic .table-container table.wheading td.Light.Blue {
+	background-color: #D5FFF6; /*CMYK(16.5,0,3.5,0)*/
 }
-div.topic .table-container table.wheading td.Light.Yellow {  
-	background-color: #F7FF83; /*CMYK(3.1,0,48.6,0)*/ 
-} 
+div.topic .table-container table.wheading td.Light.Yellow {
+	background-color: #F7FF83; /*CMYK(3.1,0,48.6,0)*/
+}
 div.topic .table-container table.wheading td.Yellow10 {
 	background-color: #FFFFE6; /*CMYK(0,0,9.8,0)*/
-} 
+}
 
 
 /* font color */
@@ -1043,13 +1045,13 @@ div.topic .illustrations ul li {
 
 .toccontainer div.tocentry.collapsible ul li a:hover {
      text-decoration: none;
-     color: #db2032 !important; 
+     color: #db2032 !important;
 }
 
 .toccontainer div.tocentry.collapsible.selected  li.selected a{
      font-weight: 600;
 }
- 
+
  */
 .toccontainer {
 	overflow-y: scroll;
@@ -1308,3 +1310,11 @@ div.topic li .p + .p{
 div.topic li .note .p + .p{
 	margin-top: 0em !important;
 }
+
+/* Changes by Sourabh - Start*/
+
+div.topic .table .title::before{
+content: none;
+}
+
+/* Changes by Sourabh - End*/

@@ -700,8 +700,10 @@ div.topic .table-container table.wheading td.Light.Yellow,
 div.topic .table-container table.wheading td.Yellow10 {
     font-family: 'Helvetica Neue LT Std Medium', sans-serif !important;
     font-size: 17px !important;
-    text-align: center;
-    /*font-weight: bold;*/
+    /* Changes by Sourabh - Start */
+    /*text-align: center;
+    font-weight: bold;*/
+	/* Changes by Sourabh - End*/
 }
 
 
@@ -1314,6 +1316,14 @@ div.topic li .p + .p{
 div.topic li .note .p + .p{
 	margin-top: 0em !important;
 }
+
+/* Changes by Sourabh - Start*/
+
+div.topic .table .title::before{
+    content: none;
+}
+
+/* Changes by Sourabh - End*/
 
 @charset "UTF-8";
 .icon {
@@ -11761,16 +11771,24 @@ padding: 1.2em !important;
 }
 figure .imageZoomIcon{
 	cursor: pointer;
-    width: 35px;
+	/* Changes by Sourabh - Start*/
+    width: 40px;
+	/* Changes by Sourabh - End*/
     position: absolute;
     right: 0;
     margin-top: 8px;
-    background-color: white;
+	/* Changes by Sourabh - Start*/
+    background-color: #00BCD4;
+	color:white;
+	/* Changes by Sourabh - End*/
 }
 
 figure .imageZoomIcon div{
-	font-size: 35px;
+	/* Changes by Sourabh - Start*/
+	font-size: 40px;
+	/* Changes by Sourabh - End*/
 }
+
 figure #expandedImageModal {
   position: fixed; /* Stay in place */
   z-index: 98; /* Sit on top */
@@ -11921,9 +11939,14 @@ ol + div.table-container{
 }
 
 div.topic table.table th.entry .p.rotate-text{
-    margin:10px 0px 10px 0px;
-    display:table-caption;
+	margin:10px 0px 10px 0px;
+	/* Changes by Sourabh - Start*/
+    /*display:table-caption;*/
+    /* temporary fix added to remove rotated text */
+    display: inline;
+	/* Changes by Sourabh - End*/
 }
+
 div.topic section.section h2.title+.p{
     margin-top: 0.5em;
 }
@@ -11984,6 +12007,13 @@ div.topic .term{
 font-style: normal;
 }
 
+/* Changes by Sourabh - Start*/
+/* Consistent style for Video element */
+div.object video{
+	width:100%;
+}
+/* Changes by Sourabh - End*/
+
 /* Topic Page or Publication Site CSS for Land Doctrine team to work on */
 
 /* OVERRIDE CSS STARTS HERE */
@@ -12042,7 +12072,7 @@ div.topic .expandable-table table:before { display: none !important; }
 .expandable-table.expandable-table--open {
     position: fixed !important;
     z-index: 5000;
-    top: 40px;
+    top: 5vh;
     left: 5%;
 }
 
@@ -12052,16 +12082,18 @@ div.topic .expandable-table.expandable-table--open  table {
 
 .expandable-table.expandable-table--open .table-scroll-container {
     max-width: none;
-    max-height: none;
+    max-height: 90vh;
     overflow: hidden;
     position: fixed;
     z-index: 100;
     background: black;
     border: none;
     top: 0;
+    bottom: 0;
     left: 5%;
     height: 90%;
     width: 90%;
+    margin: 5vh auto;
 }
 
 .expandable-table.expandable-table--open .table-scroll-container--x-only {
@@ -12079,12 +12111,6 @@ div.topic .expandable-table.expandable-table--open  table {
 .expandable-table.expandable-table--open .table-scroll-container table caption {
     background: transparent;
 }
-
-/* .expandable-table.expandable-table--open .table-scroll-container table tr.size-row,
-.expandable-table.expandable-table--open .table-scroll-container table tr.size-row > th {
-    height: 0 !important;
-    padding: 0 0 14px;
-} */
 
 div.topic .table-container table {
     background: white;
@@ -12115,6 +12141,9 @@ div.topic table.table th.entry .p.rotate-text{
     padding: 0 10px;
     display: inline;
     transform: none;
+}
+ol + div.table-container.expandable-table {
+    margin-top: 0;
 }
 
 /* scrollbar plugin's CSS */
