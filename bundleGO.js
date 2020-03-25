@@ -39339,10 +39339,12 @@
                     });
 
 					// SOURABH START
-					table.wrap('<div class="table-scroll-container"></div>');
+					var counter=0;
+					table.wrap('<div class="table-scroll-container" id="scrollwrapper' +  counter + '"></<div>');
                     tableContainer.append('<div class="fixed-btn-container"><div class="fixed-btn"><div class="imageZoomIcon"><div class="material-icons">zoom_out_map</div></div></div></div></div>');
 					var tableScrollContainer = table.closest('.table-scroll-container');
 					table.find("caption.title > div").css("maxWidth", tableScrollContainer.width());
+
 					// SOURABH END
 
 					// Change some css
@@ -39355,15 +39357,15 @@
 						// console.log( "currentParentWidth " + currentParentWidth);
 						if (cols.length) {
 
-							var counter = 1;
+							// var counter = 1;
 							var width = _lodash2.default.reduce(cols, function (sum, n) {
 								n = (0, _jquery2.default)(n);
 								var percentageSum = sum + parseInt(n.css('width'), 10);
-								var minWidthForHeaderCol = parseInt(n.css('width'), 10) * currentParentWidth / 100;
+								// var minWidthForHeaderCol = parseInt(n.css('width'), 10) * currentParentWidth / 100;
 								// console.log( "minWidthForHeaderCol " + minWidthForHeaderCol);
 
-								(0, _jquery2.default)(n).parent().parent().find(".thead tr th:nth-child(" + counter + ")").css("minWidth", minWidthForHeaderCol );
-								counter++;
+								// (0, _jquery2.default)(n).parent().parent().find(".thead tr th:nth-child(" + counter + ")").css("minWidth", minWidthForHeaderCol );
+								// counter++;
 								return percentageSum;
 							}, 0);
 							// SOURABH ENDS
@@ -39465,6 +39467,7 @@
 
                     //SOURABH START
 					table.floatThead('reflow');
+					$('.table-scroll-container').perfectScrollbar('update');
 
 					var tableScrollContainer = table.closest('.table-scroll-container');
 					table.find("caption.title > div").css("maxWidth", tableScrollContainer.width());
@@ -39507,6 +39510,7 @@
 
                     //SOURABH START
 					table.floatThead('reflow');
+					$('.table-scroll-container').perfectScrollbar('update');
 
 					var tableScrollContainer = table.closest('.table-scroll-container');
 					table.find("caption.title > div").css("maxWidth", tableScrollContainer.width());
@@ -39949,12 +39953,11 @@
 			return $.ajax( options );
 		};
 
-        setTimeout(function(){
-
+		setTimeout(function(){
 			// import FloatHeadJS
 			$.cachedScript( "/apps/land-doctrine/clientlibs/clientlib-fmdita/js/floaTheadPlugin.js" ).done(function( script, textStatus ) {
-
-				$(".table-scroll-container > table").each(function(){
+				console.log("floathead " + textStatus);
+				$(".table-scroll-container table").each(function(){
 					var tableContainer = $( this ).closest('.table-container');
 					var tableScrollContainer = $( this ).closest('.table-scroll-container');
 					var table = $( this );
@@ -39983,6 +39986,7 @@
 							});
 					}
 					table.floatThead('reflow');
+					$('.table-scroll-container').perfectScrollbar('update');
 
 					$(".expandable-table").css("opacity", "0");
 					tableScrollContainer.css("opacity", "0");
@@ -39994,6 +39998,7 @@
 					var newWidth = $(".table-scroll-container").width();
 					$(this).find(".floatThead-container").css({width: newWidth});
 				});
+
 
 				$(document).on("click", ".floatThead-wrapper .thead, .fixed-btn", function(e){
 					e.preventDefault();
@@ -40009,6 +40014,7 @@
 					$(".table-scroll-container").css("opacity", "1");
 					$(".expandable-table").css("opacity", "1");
 
+
 					var hash = window.location.hash;
 					if ( hash != '') {
 						var itemId = hash.substring(1, hash.length);
@@ -40019,14 +40025,19 @@
 						}, 2000);
 					}
 				}, 2000);
-
-
-
-
-
 			})
+
+
+			// import perfect scrollbar
+			$.cachedScript("https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/0.5.2/perfect-scrollbar.min.js").done(function(script, textStatus){
+				console.log("scrollbar " + textStatus);
+				$('.table-scroll-container').perfectScrollbar();
+			});
+
 		}, 3000);
+
 	});
+
 
 	// SOURABH ENDS
 
