@@ -39467,9 +39467,11 @@
 
                     //SOURABH START
 					table.floatThead('reflow');
-					$('.table-scroll-container').perfectScrollbar('update');
-
 					var tableScrollContainer = table.closest('.table-scroll-container');
+					if ( tableScrollContainer.hasClass("ps-container") ) {
+						$('.table-scroll-container').perfectScrollbar('update');
+					}
+
 					table.find("caption.title > div").css("maxWidth", tableScrollContainer.width());
                     //SOURABH END
 				}
@@ -39510,9 +39512,11 @@
 
                     //SOURABH START
 					table.floatThead('reflow');
-					$('.table-scroll-container').perfectScrollbar('update');
-
 					var tableScrollContainer = table.closest('.table-scroll-container');
+					if ( tableScrollContainer.hasClass("ps-container") ) {
+						$('.table-scroll-container').perfectScrollbar('update');
+					}
+
 					table.find("caption.title > div").css("maxWidth", tableScrollContainer.width());
 
                     //SOURABH END
@@ -39953,6 +39957,11 @@
 			return $.ajax( options );
 		};
 
+		// import perfect scrollbar
+		$.cachedScript("https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/0.5.2/perfect-scrollbar.min.js").done(function(script, textStatus){
+			console.log("scrollbar " + textStatus);
+		});
+
 		setTimeout(function(){
 			// import FloatHeadJS
 			$.cachedScript( "/apps/land-doctrine/clientlibs/clientlib-fmdita/js/floaTheadPlugin.js" ).done(function( script, textStatus ) {
@@ -39986,7 +39995,11 @@
 							});
 					}
 					table.floatThead('reflow');
-					$('.table-scroll-container').perfectScrollbar('update');
+					if ( tableScrollContainer.hasClass("ps-container") ) {
+						$('.table-scroll-container').perfectScrollbar('update');
+					} else {
+						$('.table-scroll-container').perfectScrollbar();
+					}
 
 					$(".expandable-table").css("opacity", "0");
 					tableScrollContainer.css("opacity", "0");
@@ -40028,11 +40041,7 @@
 			})
 
 
-			// import perfect scrollbar
-			$.cachedScript("https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/0.5.2/perfect-scrollbar.min.js").done(function(script, textStatus){
-				console.log("scrollbar " + textStatus);
-				$('.table-scroll-container').perfectScrollbar();
-			});
+
 
 		}, 3000);
 
