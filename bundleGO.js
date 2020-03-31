@@ -39993,12 +39993,10 @@
 					table.click();
 				});
 
-
 				$(".floatThead-wrapper").each(function(e){
 					var newWidth = $(".table-scroll-container").width();
 					$(this).find(".floatThead-container").css({width: newWidth});
 				});
-
 
 				$(document).on("click", ".floatThead-wrapper .thead, .fixed-btn", function(e){
 					e.preventDefault();
