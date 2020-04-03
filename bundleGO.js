@@ -35818,10 +35818,17 @@
             });
 
             var _createClass = function() {
-                function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i];
+                function defineProperties(target, props) {
+                    for (var i = 0; i < props.length; i++) {
+                        var descriptor = props[i];
                         descriptor.enumerable = descriptor.enumerable || false;
-                        descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true;
-                        Object.defineProperty(target, descriptor.key, descriptor); } } return function(Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+                        descriptor.configurable = true;
+                        if ("value" in descriptor) descriptor.writable = true;
+                        Object.defineProperty(target, descriptor.key, descriptor);
+                    }
+                }
+                return function(Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; };
+            }();
 
             function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -39650,10 +39657,17 @@
         });
 
         var _createClass = function() {
-            function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i];
+            function defineProperties(target, props) {
+                for (var i = 0; i < props.length; i++) {
+                    var descriptor = props[i];
                     descriptor.enumerable = descriptor.enumerable || false;
-                    descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true;
-                    Object.defineProperty(target, descriptor.key, descriptor); } } return function(Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+                    descriptor.configurable = true;
+                    if ("value" in descriptor) descriptor.writable = true;
+                    Object.defineProperty(target, descriptor.key, descriptor);
+                }
+            }
+            return function(Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; };
+        }();
 
         var _jquery = __webpack_require__(1);
 
@@ -39925,10 +39939,17 @@
         });
 
         var _createClass = function() {
-            function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i];
+            function defineProperties(target, props) {
+                for (var i = 0; i < props.length; i++) {
+                    var descriptor = props[i];
                     descriptor.enumerable = descriptor.enumerable || false;
-                    descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true;
-                    Object.defineProperty(target, descriptor.key, descriptor); } } return function(Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+                    descriptor.configurable = true;
+                    if ("value" in descriptor) descriptor.writable = true;
+                    Object.defineProperty(target, descriptor.key, descriptor);
+                }
+            }
+            return function(Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; };
+        }();
 
         var _jquery = __webpack_require__(1);
 
@@ -39993,10 +40014,17 @@
         });
 
         var _createClass = function() {
-            function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i];
+            function defineProperties(target, props) {
+                for (var i = 0; i < props.length; i++) {
+                    var descriptor = props[i];
                     descriptor.enumerable = descriptor.enumerable || false;
-                    descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true;
-                    Object.defineProperty(target, descriptor.key, descriptor); } } return function(Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+                    descriptor.configurable = true;
+                    if ("value" in descriptor) descriptor.writable = true;
+                    Object.defineProperty(target, descriptor.key, descriptor);
+                }
+            }
+            return function(Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; };
+        }();
 
         var _jquery = __webpack_require__(1);
 
@@ -40324,6 +40352,9 @@ $(document).ready(function() {
     // SOURABH START
     var hash = window.location.hash;
     if (hash != '') {
+        $("html").animate({
+            scrollTop: 0
+        }, 0);
         $("body").addClass("no-scroll");
     }
 
@@ -40384,9 +40415,6 @@ $(document).ready(function() {
                     $('.table-scroll-container').perfectScrollbar();
                 }
 
-                $(".expandable-table").css("opacity", "0");
-                tableScrollContainer.css("opacity", "0");
-                table.click();
             });
 
             $(".floatThead-wrapper").each(function(e) {
@@ -40401,12 +40429,17 @@ $(document).ready(function() {
                 targetTableBody.find(".tbody").click();
             });
 
+            // $(".expandable-table").css("visibility", "hidden");
+            // $(".table-scroll-container").css("visibility", "hidden");
+            // $(".table-scroll-container").find(".table").click();
+
             setTimeout(function() {
-                $(".expandable-table--open").each(function() {
-                    $(this).find("table").click();
-                })
-                $(".table-scroll-container").css("opacity", "1");
-                $(".expandable-table").css("opacity", "1");
+
+                // $(".expandable-table--open").each(function() {
+                //     $(this).find("table").click();
+                // })
+                // $(".table-scroll-container").css("visibility", "visible");
+                // $(".expandable-table").css("visibility", "visible");
 
 
                 var hash = window.location.hash;
