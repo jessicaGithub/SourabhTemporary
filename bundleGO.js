@@ -39716,8 +39716,7 @@
                         });
 
                         // SOURABH START
-                        var counter = 0;
-                        table.wrap('<div class="table-scroll-container" id="scrollwrapper' + counter + '"></<div>');
+                        table.wrap('<div class="table-scroll-container"></<div>');
                         tableContainer.append('<div class="fixed-btn-container"><div class="fixed-btn"><div class="imageZoomIcon"><div class="material-icons">zoom_out_map</div></div></div></div></div>');
                         var tableScrollContainer = table.closest('.table-scroll-container');
                         table.find("caption.title > div").css("maxWidth", tableScrollContainer.width());
@@ -40350,13 +40349,6 @@ $(document).ready(function() {
     });
 
     // SOURABH START
-    var hash = window.location.hash;
-    if (hash != '') {
-        $("html").animate({
-            scrollTop: 0
-        }, 0);
-        $("body").addClass("no-scroll");
-    }
 
     // Setup script import and cache it
     $.cachedScript = function(url, options) {
@@ -40376,10 +40368,24 @@ $(document).ready(function() {
         console.log("scrollbar " + textStatus);
     });
 
+    $("html").animate({
+        scrollTop: 0
+    }, 0);
+
     setTimeout(function() {
+        var hash = window.location.hash;
+        if (hash != '') {
+            var itemId = hash.substring(1, hash.length);
+            var targetEl = document.getElementById(itemId);
+            var x = $(targetEl).offset();
+            $("html").animate({
+                scrollTop: x.top - 50
+            }, 800);
+        }
+
         // import FloatHeadJS (the cdn version is used for override testing, do not remove)
         // $.cachedScript("https://cdnjs.cloudflare.com/ajax/libs/floatthead/2.1.4/jquery.floatThead.min.js").done(function(script, textStatus) {
-        $.cachedScript("/apps/land-doctrine/clientlibs/clientlib-fmdita/js/floaTheadPlugin.js").done(function(script, textStatus) {
+		$.cachedScript("/apps/land-doctrine/clientlibs/clientlib-fmdita/js/floaTheadPlugin.js").done(function(script, textStatus) {
             console.log("floathead " + textStatus);
             $(".table-scroll-container table").each(function() {
                 var tableContainer = $(this).closest('.table-container');
@@ -40429,33 +40435,6 @@ $(document).ready(function() {
                 var targetTableBody = $(this).closest(".expandable-table");
                 targetTableBody.find(".tbody").click();
             });
-
-            // $(".expandable-table").css("visibility", "hidden");
-            // $(".table-scroll-container").css("visibility", "hidden");
-            // $(".table-scroll-container").find(".table").click();
-
-            setTimeout(function() {
-
-                // $(".expandable-table--open").each(function() {
-                //     $(this).find("table").click();
-                // })
-                // $(".table-scroll-container").css("visibility", "visible");
-                // $(".expandable-table").css("visibility", "visible");
-
-
-                // var hash = window.location.hash;
-                // if (hash != '') {
-                //     var itemId = hash.substring(1, hash.length);
-                //     var targetEl = document.getElementById(itemId);
-                //     var x = $(targetEl).offset();
-                //     $("html").animate({
-                //         scrollTop: x.top - 50
-                //     }, 800);
-                //     $("body").removeClass("no-scroll");
-                // } else {
-                //     $("body").removeClass("no-scroll");
-                // }
-            }, 2000);
         })
 
 
