@@ -39845,13 +39845,13 @@
                         $("#expandedImageModal").remove();
 
                         //SOURABH START
-                        table.floatThead('reflow');
                         var tableScrollContainer = table.closest('.table-scroll-container');
                         if (tableScrollContainer.hasClass("ps-container")) {
                             $('.table-scroll-container').perfectScrollbar('update');
                         }
 
                         table.find("caption.title > div").css("maxWidth", tableScrollContainer.width());
+                        table.floatThead('reflow');
                         //SOURABH END
                     }
 
@@ -40377,7 +40377,8 @@ $(document).ready(function() {
     });
 
     setTimeout(function() {
-        // import FloatHeadJS
+        // import FloatHeadJS (the cdn version is used for override testing, do not remove)
+        // $.cachedScript("https://cdnjs.cloudflare.com/ajax/libs/floatthead/2.1.4/jquery.floatThead.min.js").done(function(script, textStatus) {
         $.cachedScript("/apps/land-doctrine/clientlibs/clientlib-fmdita/js/floaTheadPlugin.js").done(function(script, textStatus) {
             console.log("floathead " + textStatus);
             $(".table-scroll-container table").each(function() {
@@ -40442,18 +40443,18 @@ $(document).ready(function() {
                 // $(".expandable-table").css("visibility", "visible");
 
 
-                var hash = window.location.hash;
-                if (hash != '') {
-                    var itemId = hash.substring(1, hash.length);
-                    var targetEl = document.getElementById(itemId);
-                    var x = $(targetEl).offset();
-                    $("html").animate({
-                        scrollTop: x.top - 50
-                    }, 800);
-                    $("body").removeClass("no-scroll");
-                } else {
-                    $("body").removeClass("no-scroll");
-                }
+                // var hash = window.location.hash;
+                // if (hash != '') {
+                //     var itemId = hash.substring(1, hash.length);
+                //     var targetEl = document.getElementById(itemId);
+                //     var x = $(targetEl).offset();
+                //     $("html").animate({
+                //         scrollTop: x.top - 50
+                //     }, 800);
+                //     $("body").removeClass("no-scroll");
+                // } else {
+                //     $("body").removeClass("no-scroll");
+                // }
             }, 2000);
         })
 
