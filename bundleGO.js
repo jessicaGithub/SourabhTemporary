@@ -40058,7 +40058,11 @@
                         var leftMargin = div.closest('figure').offset().left - $(".content-area-custom").offset().left;
                         var rightMargin = $(".content-area-custom").width() - (div.closest('figure').offset().left - $(".content-area-custom").offset().left + div.closest('figure').width());
                         if (div.closest("table").length == 0) {
-                            div.closest('figure').css("margin-left", -(leftMargin - rightMargin) + "px");
+                            if(div.closest('figure').find("video").length < 1){
+                                div.closest('figure').css("margin-left", -(leftMargin - rightMargin) + "px");
+                            }else{
+                                div.closest("li.li").addClass("figure-has-video");
+                            }
                         }
                         /*Center Logic end*/
                         var image = div.find(' > img');
