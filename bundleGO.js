@@ -40058,6 +40058,8 @@
                         var leftMargin = div.closest('figure').offset().left - $(".content-area-custom").offset().left;
                         var rightMargin = $(".content-area-custom").width() - (div.closest('figure').offset().left - $(".content-area-custom").offset().left + div.closest('figure').width());
                         if (div.closest("table").length == 0) {
+                            // add margin-left only if there's no video inside figure.
+                            // if not, add "figure-has-video" to display video in full width
                             if(div.closest('figure').find("video").length < 1){
                                 div.closest('figure').css("margin-left", -(leftMargin - rightMargin) + "px");
                             }else{

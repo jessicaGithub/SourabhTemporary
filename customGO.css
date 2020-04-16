@@ -12850,6 +12850,7 @@ ol+div.table-container.expandable-table {
     overflow: hidden;
 }
 
+/* display video in full width */
 li.figure-has-video > div{
     width: 100%;
 }
