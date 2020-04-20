@@ -40371,28 +40371,20 @@ $(document).ready(function() {
     $("html").animate({
         scrollTop: 0
     }, 0);
-
-    // Moved the hash scroll from below setTimeout so it doesn't need to wait for the timeout
-    var hash = window.location.hash;
-    if (hash != '') {
-        var itemId = hash.substring(1, hash.length);
-        var targetEl = document.getElementById(itemId);
-        var x = $(targetEl).offset();
-        $("html").animate({
-            scrollTop: x.top - 50
-        }, 800);
-    }
+    
+    setTimeout(function() {
+        var hash = window.location.hash;
+        if (hash != '') { console.log(hash);
+            var itemId = hash.substring(1, hash.length);
+            var targetEl = document.getElementById(itemId);
+            var x = $(targetEl).offset();
+            $("html").animate({
+                scrollTop: x.top - 50
+            }, 800);
+        }
+    }, 200);
 
     setTimeout(function() {
-        // var hash = window.location.hash;
-        // if (hash != '') {
-        //     var itemId = hash.substring(1, hash.length);
-        //     var targetEl = document.getElementById(itemId);
-        //     var x = $(targetEl).offset();
-        //     $("html").animate({
-        //         scrollTop: x.top - 50
-        //     }, 800);
-        // }
 
         // import FloatHeadJS (the cdn version is used for override testing, do not remove)
         // $.cachedScript("https://cdnjs.cloudflare.com/ajax/libs/floatthead/2.1.4/jquery.floatThead.min.js").done(function(script, textStatus) {
