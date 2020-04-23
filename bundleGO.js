@@ -40368,21 +40368,24 @@ $(document).ready(function() {
         console.log("scrollbar " + textStatus);
     });
 
-    $("html").animate({
-        scrollTop: 0
-    }, 0);
+    var hash = window.location.hash;
+    var itemId = hash.substring(1, hash.length);
+    var targetEl = document.getElementById(itemId);
+    if($(targetEl).closest("table").hasClass("wheading")){
+        $("html").animate({
+            scrollTop: 0
+        }, 0);
+    }
     
     setTimeout(function() {
-        var hash = window.location.hash;
-        if (hash != '') { console.log(hash);
-            var itemId = hash.substring(1, hash.length);
-            var targetEl = document.getElementById(itemId);
+        if (hash != '') { 
             var x = $(targetEl).offset();
             $("html").animate({
                 scrollTop: x.top - 50
             }, 800);
         }
-    }, 200);
+    }, 300);
+
 
     setTimeout(function() {
 
