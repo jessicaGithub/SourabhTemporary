@@ -12849,3 +12849,17 @@ ol+div.table-container.expandable-table {
 .no-scroll {
     overflow: hidden;
 }
+
+/* Disallow word breaks so text in table columns don't look like squeezed */
+div.topic .entry .p{
+    word-break: normal;
+}
+
+/* display video in full width */
+li.figure-has-video > div{
+    width: 100%;
+}
+
+li.figure-has-video::before{
+    display: none;
+}
