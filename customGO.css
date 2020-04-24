@@ -12854,3 +12854,12 @@ ol+div.table-container.expandable-table {
 div.topic .entry .p{
     word-break: normal;
 }
+
+/* display video in full width */
+li.figure-has-video > div{
+    width: 100%;
+}
+
+li.figure-has-video::before{
+    display: none;
+}
