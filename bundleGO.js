@@ -40064,6 +40064,21 @@
                                 div.closest('figure').css("margin-left", -(leftMargin - rightMargin) + "px");
                             }else{
                                 div.closest("li.li").addClass("figure-has-video");
+                                
+                                maintainVideoWidth();
+
+                                (0, _jquery2.default)(window).on('resize', maintainVideoWidth);
+
+                                function maintainVideoWidth(){
+                                    var main_content_width = $('.article-content').width() - 10;
+                                    if(div.closest("li.figure-has-video").closest('section.section').length > 0){
+                                        var section_position_left = div.closest("li.figure-has-video").closest('section.section').position().left;
+                                        var figure_position_left = div.closest('li.figure-has-video figure').position().left;
+                                        var figure_video_margin_left = (parseFloat(section_position_left - figure_position_left));
+                                        div.closest('li.figure-has-video figure > div').css("width", main_content_width + "px" );
+                                        div.closest('li.figure-has-video figure > div').css("margin-left", figure_video_margin_left + "px" );
+                                    }
+                                }
                             }
                         }
                         /*Center Logic end*/

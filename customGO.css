@@ -12860,6 +12860,14 @@ li.figure-has-video > div{
     width: 100%;
 }
 
+li.figure-has-video figure > div{
+    display: block !important;
+}
+
+li.figure-has-video div.object{
+    width: 100%;
+}
+
 li.figure-has-video::before{
     display: none;
 }
