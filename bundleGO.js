@@ -40396,16 +40396,29 @@ $(document).ready(function() {
         $("html").animate({
             scrollTop: 0
         }, 0);
+
+        setTimeout(function() {
+            if (hash != '') { 
+                var x = $(targetEl).offset();
+                $("html").animate({
+                    scrollTop: x.top - 50
+                }, 800);
+            }
+        }, 300);
+
+    }else{
+
+        setTimeout(function() {
+            if (hash != '') { 
+                var x = $(targetEl).offset();
+                $("html").animate({
+                    scrollTop: x.top
+                }, 800);
+            }
+        }, 300);
     }
     
-    setTimeout(function() {
-        if (hash != '') { 
-            var x = $(targetEl).offset();
-            $("html").animate({
-                scrollTop: x.top - 50
-            }, 800);
-        }
-    }, 300);
+    
 
 
     setTimeout(function() {
