@@ -1,11 +1,3 @@
-
-$( "ol.firstLevelOl" ).each(function() {
-  var $this = $(this);
-  var   val=1;
-  if ( $this.attr("start")){
-    val =  $this.attr("start");
-  }
-  val=val-1;
-  val= 'my-counter '+ val;
-  $this.css('counter-increment',val );
+document.querySelectorAll('ol.firstLevelOl').forEach(function(element, index) {
+  $(element).css('counter-increment', 'my-counter '+ index );
 });
