@@ -23,14 +23,15 @@ if (isEdge || isIE) {
 
     });
     $("div.topic ol").each(function() {
-        var startValue = $(this).attr('start');
+        var $this = $(this);
+        var startValue = $this.attr('start');
         if (typeof startValue !== typeof undefined && startValue !== false) {
-            var styleValue = $(this).attr('style');
-            var counterValue = $(this).attr('data-outputclass');
+            var styleValue = $this.attr('style');
+            var counterValue = $this.attr('data-outputclass');
             if (!(typeof styleValue !== typeof undefined && styleValue !== false && styleValue.indexOf("counter-increment:") > -1) &&
                 !(typeof counterValue !== typeof undefined && counterValue !== false && counterValue.indexOf("noChapterNumbering") > -1)) {
-                $(this).attr("data-customie", "customparanumber");
-                $(this).attr("style", "counter-increment: my-counter " + (parseInt(startValue) - 1) + ";");
+                    $this.attr("data-customie", "customparanumber");
+                    $this.attr("style", "counter-increment: my-counter " + (parseInt(startValue) - 1) + ";");
             }
         }
     });
@@ -41,29 +42,30 @@ if (isEdge || isIE) {
 }
 $(document).ready(function() {
     $("div,td,section").each(function() {
-
-        var attr = $(this).attr('data-outputclass');
+        var $this = $(this);
+        var attr = $this.attr('data-outputclass');
         if (typeof attr !== typeof undefined && attr !== false) {
-            var cls = $(this).attr("data-outputclass");
-            $(this).addClass(cls);
+            var cls = $this.attr("data-outputclass");
+            $this.addClass(cls);
         }
 
         /* fix for headings */
-        if ($(this).hasClass('breadcrumb')) {
+        if ($this.hasClass('breadcrumb')) {
 
-            if ($(this).parent().parent().hasClass('reference')) {
-                $(this).parent().parent().addClass('clearfix');
+            if ($this.parent().parent().hasClass('reference')) {
+                $this.parent().parent().addClass('clearfix');
             }
         }
 
     });
     $("colgroup").each(function() {
-        if ($(this).hasClass('FormatB')) {
-            $(this).parent().addClass('FormatB');
+        var $this = $(this);
+        if ($this.hasClass('FormatB')) {
+            $this.parent().addClass('FormatB');
 
         } else {
-            if ($(this).hasClass('vuitui')) {
-                $(this).parent().addClass('vuitui');
+            if ($this.hasClass('vuitui')) {
+                $this.parent().addClass('vuitui');
 
             }
         }
@@ -71,18 +73,20 @@ $(document).ready(function() {
     });
 
     $("th").each(function() {
-        if ($(this).attr('rotate') == 'yes') {
-            $(this).find('.p').addClass('rotate-text');
+        var $this = $(this);
+        if ($this.attr('rotate') == 'yes') {
+            $this.find('.p').addClass('rotate-text');
         }
     });
 
     $("object").each(function() {
         //console.log("object");
         //console.log($(this).attr('data'));
-        var fileName = $(this).attr('data');
+        var $this = $(this);
+        var fileName = $this.attr('data');
         var formatCheck = '.mp4';
         if (fileName.indexOf(formatCheck) != -1) {
-            $(this).css({ "width": "100%", "height": "400px" });
+            $this.css({ "width": "100%", "height": "400px" });
         }
 
     });
@@ -95,14 +99,15 @@ $(document).ready(function() {
 	
 	/* styling of tooltip for glossary based on character length */
 	$("body").find(".tooltipdefinition").each(function(){
-        if($(this).text().length > 13){
-            $(this).css("min-width", "150px");
+        var $this = $(this);
+        if($this.text().length > 13){
+            $this.css("min-width", "150px");
         }
-        if($(this).text().length > 35){
-            $(this).css("min-width", "200px");
+        if($this.text().length > 35){
+            $this.css("min-width", "200px");
         }
-        if($(this).text().length > 50){
-            $(this).css("min-width", "250px");
+        if($this.text().length > 50){
+            $this.css("min-width", "250px");
         }
     });
 
@@ -162,16 +167,17 @@ $(document).ready(function() {
 		$.cachedScript("/apps/land-doctrine/clientlibs/clientlib-fmdita/js/floaTheadPlugin.js").done(function(script, textStatus) {
             // console.log("floathead " + textStatus);
             $(".table-scroll-container table").each(function() {
-                var tableContainer = $(this).closest('.table-container');
-                var tableScrollContainer = $(this).closest('.table-scroll-container');
                 var table = $(this);
+                var tableContainer = table.closest('.table-container');
+                var tableScrollContainer = table.closest('.table-scroll-container');
+                
                 table.on("floatThead", function() {
-                    var newWidth = table.closest(".table-scroll-container").width();
+                    var newWidth = tableScrollContainer.width();
                     tableContainer.find(".floatThead-container").css({ width: newWidth });
                 })
                 table.on("reflowed", function() {
                     setTimeout(function() {
-                        var newWidth = table.closest(".table-scroll-container").width();
+                        var newWidth = tableScrollContainer.width();
                         tableContainer.find(".floatThead-container").css({ width: newWidth });
                         tableContainer.find(".floatThead-container table.floatThead-table").css({ width: "100%" });
                     }, 1000);
@@ -191,9 +197,9 @@ $(document).ready(function() {
                 }
                 table.floatThead('reflow');
                 if (tableScrollContainer.hasClass("ps-container")) {
-                    $('.table-scroll-container').perfectScrollbar('update');
+                    tableScrollContainer.perfectScrollbar('update');
                 } else {
-                    $('.table-scroll-container').perfectScrollbar();
+                    tableScrollContainer.perfectScrollbar();
                 }
 
             });

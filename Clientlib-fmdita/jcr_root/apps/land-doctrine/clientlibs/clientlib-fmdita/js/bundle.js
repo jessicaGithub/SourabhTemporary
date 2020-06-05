@@ -38050,8 +38050,8 @@
                 if (_.$dots !== null) {
                     _.$slides.not(_.$slideTrack.find('.slick-cloned')).each(function(i) {
                         var slideControlIndex = tabControlIndexes.indexOf(i);
-
-                        $(this).attr({
+                        var $this = $(this);
+                        $this.attr({
                             'role': 'tabpanel',
                             'id': 'slick-slide' + _.instanceUid + i,
                             'tabindex': -1
@@ -38060,7 +38060,7 @@
                         if (slideControlIndex !== -1) {
                             var ariaButtonControl = 'slick-slide-control' + _.instanceUid + slideControlIndex;
                             if ($('#' + ariaButtonControl).length) {
-                                $(this).attr({
+                                $this.attr({
                                     'aria-describedby': ariaButtonControl
                                 });
                             }
@@ -38069,12 +38069,12 @@
 
                     _.$dots.attr('role', 'tablist').find('li').each(function(i) {
                         var mappedSlideIndex = tabControlIndexes[i];
-
-                        $(this).attr({
+                        var $this = $(this);
+                        $this.attr({
                             'role': 'presentation'
                         });
 
-                        $(this).find('button').first().attr({
+                        $this.find('button').first().attr({
                             'role': 'tab',
                             'id': 'slick-slide-control' + _.instanceUid + i,
                             'aria-controls': 'slick-slide' + _.instanceUid + mappedSlideIndex,
@@ -38241,11 +38241,11 @@
                 function loadImages(imagesScope) {
 
                     $('img[data-lazy]', imagesScope).each(function() {
-
-                        var image = $(this),
-                            imageSource = $(this).attr('data-lazy'),
-                            imageSrcSet = $(this).attr('data-srcset'),
-                            imageSizes = $(this).attr('data-sizes') || _.$slider.attr('data-sizes'),
+                        var $this = $(this);
+                        var image = $this,
+                            imageSource = $this.attr('data-lazy'),
+                            imageSrcSet = $this.attr('data-srcset'),
+                            imageSizes = $this.attr('data-sizes') || _.$slider.attr('data-sizes'),
                             imageToLoad = document.createElement('img');
 
                         imageToLoad.onload = function() {
@@ -39848,7 +39848,7 @@
                         table.floatThead('reflow');
                         var tableScrollContainer = table.closest('.table-scroll-container');
                         if (tableScrollContainer.hasClass("ps-container")) {
-                            $('.table-scroll-container').perfectScrollbar('update');
+                            tableScrollContainer.perfectScrollbar('update');
                         }
 
                         table.find("caption.title > div").css("maxWidth", tableScrollContainer.width());
@@ -39893,7 +39893,7 @@
                             table.floatThead('reflow');
                             var tableScrollContainer = table.closest('.table-scroll-container');
                             if (tableScrollContainer.hasClass("ps-container")) {
-                                $('.table-scroll-container').perfectScrollbar('update');
+                                tableScrollContainer.perfectScrollbar('update');
                             }
 
                             table.find("caption.title > div").css("maxWidth", tableScrollContainer.width());
@@ -40056,13 +40056,15 @@
                     (0, _jquery2.default)('figure > div').each(function(i, div) {
                         div = (0, _jquery2.default)(div);
                         /*Logic for bringing all the images at the center of the page, despite of expandable or not*/
-                        var leftMargin = div.closest('figure').offset().left - $(".content-area-custom").offset().left;
-                        var rightMargin = $(".content-area-custom").width() - (div.closest('figure').offset().left - $(".content-area-custom").offset().left + div.closest('figure').width());
+                        var div_figure = div.closest('figure');
+                        var leftMargin = div_figure.offset().left - $(".content-area-custom").offset().left;
+                        var rightMargin = $(".content-area-custom").width() - (div_figure.offset().left - $(".content-area-custom").offset().left + div.closest('figure').width());
                         if (div.closest("table").length == 0) {
                             // add margin-left only if there's no video inside figure.
                             // if not, add "figure-has-video" to display video in full width
-                            if(div.closest('figure').find("video").length < 1){
-                                div.closest('figure').css("margin-left", -(leftMargin - rightMargin) + "px");
+                            
+                            if(div_figure.find("video").length < 1){
+                                div_figure.css("margin-left", -(leftMargin - rightMargin) + "px");
                             }else{
                                 div.closest("li.li").addClass("figure-has-video");			                                
                                 maintainVideoWidth();
@@ -40070,9 +40072,10 @@
 
                                 function maintainVideoWidth(){
                                     var main_content_width = $('.article-content').width() - 10;
-                                    if(div.closest("li.figure-has-video").closest('section.section').length > 0){
-                                        var section_position_left = div.closest("li.figure-has-video").closest('section.section').position().left;
-                                        var figure_position_left = div.closest('li.figure-has-video figure').position().left;
+                                    var video_row = div.closest("li.figure-has-video");
+                                    if(video_row.closest('section.section').length > 0){
+                                        var section_position_left = video_row.closest('section.section').position().left;
+                                        var figure_position_left = video_row.find("figure").position().left;
                                         var figure_video_margin_left = (parseFloat(section_position_left - figure_position_left));
                                         div.closest('li.figure-has-video figure > div').css("width", main_content_width + "px" );
                                         div.closest('li.figure-has-video figure > div').css("margin-left", figure_video_margin_left + "px" );
@@ -40095,7 +40098,7 @@
 
                             // get image width and height
                             var defaultWidth = image.width();
-                            var defaultHeight = image.height();
+                            // var defaultHeight = image.height();
                             var showExpandIcon = false;
                             if (defaultWidth > customWidth) {
                                 div.closest('figure').addClass('expandable-figure');
