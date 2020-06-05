@@ -10442,15 +10442,15 @@
             function log() {}
 
             function info() {
-                console.log.apply(console, arguments);
+                // console.log.apply(console, arguments);
             }
 
             function warn() {
-                console.log.apply(console, arguments);
+                // console.log.apply(console, arguments);
             }
 
             function error() {
-                console.warn.apply(console, arguments);
+                // console.warn.apply(console, arguments);
             }
 
             function time(label) {
@@ -10464,7 +10464,7 @@
                 }
 
                 var duration = now() - time;
-                console.log(label + ": " + duration + "ms");
+                // console.log(label + ": " + duration + "ms");
             }
 
             function trace() {
@@ -10475,7 +10475,7 @@
             }
 
             function dir(object) {
-                console.log(util.inspect(object) + "\n");
+                // console.log(util.inspect(object) + "\n");
             }
 
             function consoleAssert(expression) {
@@ -30868,7 +30868,7 @@
 
             // log is just a thin wrapper to console.log that prepends a timestamp
             exports.log = function() {
-                console.log('%s - %s', timestamp(), exports.format.apply(exports, arguments));
+                // console.log('%s - %s', timestamp(), exports.format.apply(exports, arguments));
             };
 
             /**
@@ -35792,7 +35792,7 @@
             var form = document.querySelectorAll('form');
 
             function validate() {
-                console.log('validating...');
+                // console.log('validating...');
             }
 
             function init() {
@@ -35845,7 +35845,7 @@
                 _createClass(Search, [{
                     key: 'getResults',
                     value: function getResults() {
-                        console.log(this.keyword);
+                        // console.log(this.keyword);
                     }
                 }]);
 
@@ -40154,7 +40154,7 @@
                         moveDiv(div.closest('figure'));
                         //var scrollTop = $(document).scrollTop()+($(window).height()-((div.closest('figure').find("div").offset().top)-($(document).scrollTop())));
                         var scrollTop = div.closest('figure').find("div").offset().top - 150;
-                        console.log(scrollTop);
+                        
                         window.scrollTo(0, scrollTop);
                     } else {
                         div.closest('figure').find("#expandedImageModal").remove();

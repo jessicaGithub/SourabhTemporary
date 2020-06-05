@@ -15,6 +15,6 @@
 ###############################################################################
 #base=js
 bundle.js
-testing-lib.js
+#testing-lib.js
 list.js
 custom.js

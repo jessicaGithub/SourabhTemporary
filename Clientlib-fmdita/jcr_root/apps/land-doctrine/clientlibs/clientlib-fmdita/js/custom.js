@@ -123,7 +123,7 @@ $(document).ready(function() {
 
     // import perfect scrollbar
     $.cachedScript("/apps/land-doctrine/clientlibs/clientlib-fmdita/js/perfect-scrollbar.js").done(function(script, textStatus) {
-        console.log("scrollbar " + textStatus);
+        // console.log("scrollbar " + textStatus);
     });
 
     var hash = window.location.hash;
@@ -160,7 +160,7 @@ $(document).ready(function() {
         // import FloatHeadJS (the cdn version is used for override testing, do not remove)
         // $.cachedScript("https://cdnjs.cloudflare.com/ajax/libs/floatthead/2.1.4/jquery.floatThead.min.js").done(function(script, textStatus) {
 		$.cachedScript("/apps/land-doctrine/clientlibs/clientlib-fmdita/js/floaTheadPlugin.js").done(function(script, textStatus) {
-            console.log("floathead " + textStatus);
+            // console.log("floathead " + textStatus);
             $(".table-scroll-container table").each(function() {
                 var tableContainer = $(this).closest('.table-container');
                 var tableScrollContainer = $(this).closest('.table-scroll-container');
