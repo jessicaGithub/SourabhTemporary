@@ -18,5 +18,3 @@ bundle.js
 #testing-lib.js
 list.js
 custom.js
-floaTheadPlugin.js
-perfect-scrollbar.js
